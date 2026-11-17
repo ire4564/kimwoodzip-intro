@@ -60,20 +60,32 @@ export function createEnCopy({ i, f, account, pricing }) {
     audience: {
       eyebrow: 'Audience',
       title: 'Who is watching',
-      desc: 'From wedding planning to setting up a first home, the audience is in their 20s–30s and cares about living spaces.',
+      desc: 'From a TV-free 5-pyeong living-room library to people in their 20s–30s making a small home work.',
       targets: [
-        { title: 'Couples to be', desc: 'Couples in their 20s–30s planning a wedding' },
-        { title: 'Newlyweds', desc: 'Newlyweds in their 20s–30s settling into a new home' },
         {
-          title: 'Wood-toned interiors',
-          desc: 'People who love walnut tones, cottage interiors and solid wood furniture',
+          title: 'Small living-room library',
+          desc: 'People who want to turn a small, TV-free living room into a library or hobby space',
         },
-        { title: 'Home café', desc: 'People into home cafés, coffee and a café-like mood at home' },
-        { title: 'Tidy living', desc: 'People who want a home that looks good and stays tidy' },
-        { title: 'Flowers · plants', desc: 'Women in their 20s–30s who love flowers and houseplants' },
+        {
+          title: 'Newlyweds and couples to be',
+          desc: 'Couples in their 20s–30s furnishing a first home on a realistic budget',
+        },
+        {
+          title: 'Layout and budget',
+          desc: 'People looking for sofa and chair pairings, shelving and lighting layouts with real prices',
+        },
+        {
+          title: 'Walnut and wood tones',
+          desc: 'People who love walnut tones, solid wood furniture and a wood-café mood',
+        },
+        { title: 'Home café · home bar', desc: 'People who want a home café by day and a home bar by night' },
+        {
+          title: 'Older apartments',
+          desc: 'People who want to refresh an older apartment through layout and styling',
+        },
       ],
       info: [
-        { label: 'Main categories', value: 'Living · Interior · Wedding' },
+        { label: 'Main categories', value: 'Interior · Living · Newlywed life' },
         { label: 'Main followers', value: 'South Korea · 20s–30s · women' },
         { label: 'Posting frequency', value: '2–3 posts a week (carousels and Reels)' },
       ],
@@ -148,13 +160,14 @@ export function createEnCopy({ i, f, account, pricing }) {
       ],
       promo: {
         eyebrow: 'Sponsored Content',
-        title: 'Engagement holds up on sponsored posts',
+        title: 'Sponsored posts still draw engagement',
         body: (
           <>
             The last {i.promoContentCount} sponsored posts averaged <strong>{f.pct(i.promoRate)}</strong>{' '}
-            engagement, close to the {f.pct(i.organicSimpleRate)} average of regular content. Individual posts
-            ranged from {f.pct(i.promoRateMin, 1)} to {f.pct(i.promoRateMax, 1)}, and posts with clear product
-            information drew relatively more saves and comments.
+            engagement, ranging from {f.pct(i.promoRateMin, 1)} to {f.pct(i.promoRateMax, 1)} per post. The
+            regular-content average ({f.pct(i.organicSimpleRate)}) includes viral Reels that reached tens of
+            thousands of accounts. Among sponsored posts, feed posts showing the product in detail inside a
+            real home drew the strongest response.
           </>
         ),
         compare: [
@@ -172,10 +185,11 @@ export function createEnCopy({ i, f, account, pricing }) {
         ],
       },
       footnotes: [
-        `Average reach includes one viral post that reached ${f.num(i.reachMax)} accounts, so the median is used as the realistic baseline.`,
+        `Average reach includes viral posts, the largest reaching ${f.num(i.reachMax)} accounts, so the median is used as the realistic baseline.`,
         `Engagement, save and share rates divide all interactions across the last ${i.reelCount} Reels by total reach.`,
         'Per-post link click data is not available, so the link click rate is measured across the whole account.',
         `Sponsored metrics are a simple average of each of the ${i.promoContentCount} posts, and regular content is averaged the same way across the ${i.organicCount} non-sponsored Reels.`,
+        'Sponsored posts that the brand ran as paid ads, where most reach came from paid placement, are excluded because their engagement rate is distorted.',
       ],
     },
     strengths: {
@@ -183,8 +197,8 @@ export function createEnCopy({ i, f, account, pricing }) {
       title: 'What this account does well',
       quote: (
         <>
-          Content that reaches new potential customers and keeps earning saves and comments even when it is
-          labelled as an ad.
+          Content that reaches new potential customers and keeps drawing engagement even when it is labelled
+          as an ad.
           <br />A good fit for interior and household products shown inside a real home.
         </>
       ),
@@ -195,14 +209,14 @@ export function createEnCopy({ i, f, account, pricing }) {
           desc: `${i.reelsAboveTwiceFollowers} of the last ${i.reelCount} Reels reached more than twice the follower count.`,
         },
         {
-          title: 'Engagement holds on sponsored posts',
+          title: 'Engagement continues on sponsored posts',
           stat: f.pct(i.promoRate),
-          desc: `Average engagement across ${i.promoContentCount} sponsored posts, close to regular content.`,
+          desc: `Average engagement across the last ${i.promoContentCount} sponsored posts, up to ${f.pct(i.promoRateMax, 1)} on a single post.`,
         },
         {
           title: 'Saves that signal purchase intent',
-          stat: f.pct(i.promoAverages.saveRate),
-          desc: 'Average save rate on sponsored posts, with informative content drawing relatively more saves.',
+          stat: f.pct(i.saveRate),
+          desc: `Save rate against reach across the last ${i.reelCount} Reels, reaching ${f.pct(i.saveRateMax, 1)} on informative content.`,
         },
         {
           title: 'Products shown in a real home',
@@ -223,7 +237,7 @@ export function createEnCopy({ i, f, account, pricing }) {
       extrasHead: { request: 'Request', price: 'Additional cost' },
       extras: pricing.extras,
       extrasNote:
-        'Meta ads, product page use and raw files are separate rights and are not included in the base rate.',
+        'Meta ads creative use is free for the first month, then ₩20,000 for each additional month. Product page and online store use is discussed separately.',
     },
     rationale: {
       eyebrow: 'Pricing Basis',
@@ -233,7 +247,7 @@ export function createEnCopy({ i, f, account, pricing }) {
         `Median reach is about ${i.reachMedianMultiple.toFixed(1)}× the follower count.`,
         `${i.reelsAboveTwiceFollowers} of the last ${i.reelCount} Reels reached more than twice the follower count.`,
         `${f.pct(i.nonFollowerViewShare, 0)} of views over the last 90 days came from non-followers.`,
-        `Sponsored posts average ${f.pct(i.promoRate)} engagement, close to regular content (${f.pct(i.organicSimpleRate)}).`,
+        `Sponsored posts still average ${f.pct(i.promoRate)} engagement (${f.pct(i.promoRateMin, 1)}–${f.pct(i.promoRateMax, 1)} per post).`,
         'Rates are not raised across the board on performance alone; they follow the scope and difficulty of production.',
         'The account topic is a close fit for interior and household brands.',
       ],
@@ -248,7 +262,8 @@ export function createEnCopy({ i, f, account, pricing }) {
         retention: 'Content retention',
         extras: 'Add-ons',
       },
-      videoOnly: 'Available with Reels or the Feed + Reels package',
+      videoOnly: 'Available with products that include Reels',
+      monthsLabel: (name) => `${name} period`,
       quantity: (name) => `${name} quantity`,
       decrease: (name) => `Decrease ${name} quantity`,
       increase: (name) => `Increase ${name} quantity`,
@@ -276,7 +291,7 @@ export function createEnCopy({ i, f, account, pricing }) {
       desc: 'Production usually takes the following time after the product arrives.',
       leadTimes: [
         { label: 'Feed content', value: 'About 5–7 days' },
-        { label: 'Reels content', value: 'About 7–14 days' },
+        { label: 'Reels content', value: 'About 7–10 days' },
       ],
       stepLabel: (index) => `STEP ${index}`,
       steps: [
@@ -338,6 +353,7 @@ export function createEnCopy({ i, f, account, pricing }) {
         '- Product and shipping arrangements: ',
       ],
       retentionLabel: (label) => `Content retention ${label}`,
+      months: (n) => `${n} month${n > 1 ? 's' : ''}`,
       mailSubject: `[Campaign enquiry] @${profile.handle} estimate`,
     },
   }

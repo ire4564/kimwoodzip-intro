@@ -312,6 +312,18 @@
   color: var(--walnut-600);
 }
 
+.calc-extra__months {
+  flex: none;
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1.5px solid var(--line);
+  background: var(--paper, #fff);
+  color: inherit;
+  font: inherit;
+  font-size: 14px;
+  cursor: pointer;
+}
+
 /* Summary */
 .calc__summary {
   position: sticky;
@@ -524,5 +536,9 @@
     width: 100%;
     padding-left: 34px;
     text-align: left;
+  }
+
+  .calc-extra__months {
+    margin-left: 34px;
   }
 }

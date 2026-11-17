@@ -7,13 +7,13 @@ export const productGroups = [
     id: 'reels',
     title: '릴스',
     summary: '15~30초 세로형 영상 · 촬영 · 편집 · 기본 자막 · 업로드 · 수정 1회 포함',
-    leadTime: '제품 수령 후 약 7~14일',
+    leadTime: '제품 수령 후 약 7~10일',
     items: [
       {
         id: 'reels',
         name: '릴스',
-        min: 150000,
-        max: 150000,
+        min: 100000,
+        max: 100000,
         hasVideo: true,
       },
     ],
@@ -27,8 +27,8 @@ export const productGroups = [
       {
         id: 'feed-image',
         name: '피드 이미지',
-        min: 100000,
-        max: 100000,
+        min: 50000,
+        max: 50000,
         desc: '기본 5장 · 최대 10장',
       },
     ],
@@ -37,13 +37,13 @@ export const productGroups = [
     id: 'package',
     title: '패키지',
     summary: '동일 제품을 여러 형식으로 함께 제작',
-    leadTime: '구성에 따라 약 5~14일',
+    leadTime: '구성에 따라 약 5~10일',
     items: [
       {
         id: 'pkg-feed-reels',
         name: '피드 + 릴스 패키지',
-        min: 250000,
-        max: 250000,
+        min: 150000,
+        max: 150000,
         desc: '릴스 1건 + 피드 1건',
         hasVideo: true,
         featured: true,
@@ -51,8 +51,8 @@ export const productGroups = [
       {
         id: 'pkg-reels-story',
         name: '릴스 + 스토리 패키지',
-        min: 200000,
-        max: 200000,
+        min: 110000,
+        max: 110000,
         desc: '릴스 1건 + 스토리 1건',
         hasVideo: true,
       },
@@ -67,8 +67,8 @@ export const productGroups = [
       {
         id: 'story',
         name: '스토리',
-        min: 50000,
-        max: 50000,
+        min: 10000,
+        max: 10000,
       },
     ],
   },
@@ -85,6 +85,7 @@ export const retentionOptions = [
 // type
 // - percent: 기본 단가(선택한 상품 합계)의 min~max 비율
 // - fixed: 고정 금액 (requiresVideo면 영상 상품 선택 시에만 가능)
+// - monthly: includedMonths까지 무료, 이후 1개월마다 pricePerMonth 추가 (계산기에서 개월 수 선택)
 // - negotiable: 금액 없이 별도 협의
 export const extras = [
   {
@@ -97,25 +98,28 @@ export const extras = [
   },
   {
     id: 'rush',
-    name: '급행 제작',
+    name: '급행 제작 (제작 기간 1주일 이하 요청 시)',
     type: 'percent',
     min: 0.2,
-    max: 0.3,
-    priceLabel: '기본 단가의 20~30%',
+    max: 0.2,
+    priceLabel: '기본 단가의 20%',
   },
   {
-    id: 'rawVideo',
-    name: '원본 영상 제공',
+    id: 'cleanVideo',
+    name: '클린본 제공',
     type: 'fixed',
-    price: 50000,
+    price: 20000,
     requiresVideo: true,
-    priceLabel: '50,000원',
+    priceLabel: '20,000원',
   },
   {
     id: 'metaAds',
-    name: '메타 광고 소재 활용 (1개월)',
-    type: 'negotiable',
-    priceLabel: '별도 협의',
+    name: '메타 광고 소재 활용',
+    type: 'monthly',
+    includedMonths: 1,
+    pricePerMonth: 20000,
+    monthOptions: [1, 2, 3, 6],
+    priceLabel: '1개월 무료 · 이후 월 20,000원',
   },
   {
     id: 'detailPage',
@@ -142,6 +146,6 @@ export const terms = [
   { label: '제작 범위', value: '콘텐츠 제작 및 @kimwood.zip 계정 업로드 · 2차 활용은 별도 논의' },
   { label: '수정 횟수', value: '기본 1회 포함' },
   { label: '콘텐츠 유지 기간', value: '6개월 추가 비용 없음 · 1년 +30,000원 · 1년 이상 협의' },
-  { label: '업로드 일정', value: '제품 수령 후 피드 약 5~7일, 릴스 약 7~14일 제작 후 협의 일정에 업로드' },
+  { label: '업로드 일정', value: '제품 수령 후 피드 약 5~7일, 릴스 약 7~10일 제작 후 협의 일정에 업로드' },
   { label: '제품 제공 · 배송 · 촬영 비용', value: '캠페인별 협의' },
 ]

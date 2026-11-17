@@ -24,6 +24,8 @@ export default function CalculatorOptions({
   onRetentionChange,
   selectedExtras,
   onExtraToggle,
+  extraMonths,
+  onExtraMonthsChange,
   hasVideo,
 }) {
   const { copy, pricing } = useCopy()
@@ -76,7 +78,7 @@ export default function CalculatorOptions({
       <Group step={3} title={t.steps.extras}>
         <div className="calc-extras">
           {extras.map((extra) => {
-            // 영상 상품을 고르지 않으면 원본 영상 제공 같은 옵션은 선택할 수 없습니다.
+            // 영상 상품을 고르지 않으면 클린본 제공 같은 옵션은 선택할 수 없습니다.
             const disabled = extra.requiresVideo && !hasVideo
             const checked = selectedExtras.has(extra.id) && !disabled
             return (
@@ -98,6 +100,21 @@ export default function CalculatorOptions({
                 <span className={`calc-extra__price${extra.type === 'negotiable' ? ' is-muted' : ''}`}>
                   {extra.priceLabel}
                 </span>
+                {extra.type === 'monthly' && checked && (
+                  <select
+                    className="calc-extra__months"
+                    aria-label={t.monthsLabel(extra.name)}
+                    value={extraMonths[extra.id] ?? extra.includedMonths}
+                    onChange={(e) => onExtraMonthsChange(extra.id, Number(e.target.value))}
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    {extra.monthOptions.map((m) => (
+                      <option key={m} value={m}>
+                        {copy.quote.months(m)}
+                      </option>
+                    ))}
+                  </select>
+                )}
               </label>
             )
           })}

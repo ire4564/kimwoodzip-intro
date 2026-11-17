@@ -17,6 +17,7 @@ export default function Calculator() {
   const [quantities, setQuantities] = useState(initialQuantities)
   const [retentionId, setRetentionId] = useState('6m')
   const [selectedExtras, setSelectedExtras] = useState(() => new Set())
+  const [extraMonths, setExtraMonths] = useState({})
   const [summaryVisible, setSummaryVisible] = useState(false)
   const [sectionVisible, setSectionVisible] = useState(false)
   const summaryRef = useRef(null)
@@ -26,6 +27,7 @@ export default function Calculator() {
     quantities,
     retentionId,
     selectedExtras,
+    extraMonths,
     pricing,
     quoteCopy: copy.quote,
   })
@@ -57,6 +59,7 @@ export default function Calculator() {
     setQuantities(initialQuantities)
     setRetentionId('6m')
     setSelectedExtras(new Set())
+    setExtraMonths({})
   }
 
   return (
@@ -72,6 +75,8 @@ export default function Calculator() {
             onRetentionChange={setRetentionId}
             selectedExtras={selectedExtras}
             onExtraToggle={handleExtraToggle}
+            extraMonths={extraMonths}
+            onExtraMonthsChange={(id, months) => setExtraMonths((prev) => ({ ...prev, [id]: months }))}
             hasVideo={result.hasVideo}
           />
           <EstimateSummary result={result} onReset={reset} summaryRef={summaryRef} />

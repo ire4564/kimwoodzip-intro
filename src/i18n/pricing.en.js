@@ -3,7 +3,7 @@ export const groupLabels = {
   reels: {
     title: 'Reels',
     summary: '15–30s vertical video · filming · editing · basic captions · upload · 1 revision included',
-    leadTime: 'About 7–14 days after receiving the product',
+    leadTime: 'About 7–10 days after receiving the product',
   },
   feed: {
     title: 'Feed',
@@ -13,7 +13,7 @@ export const groupLabels = {
   package: {
     title: 'Packages',
     summary: 'The same product produced in multiple formats',
-    leadTime: 'About 5–14 days depending on the format',
+    leadTime: 'About 5–10 days depending on the format',
   },
   story: {
     title: 'Story',
@@ -38,9 +38,9 @@ export const retentionLabels = {
 
 export const extraLabels = {
   repost: { name: 'Repost on the brand account', priceLabel: '10–20% of the base rate' },
-  rush: { name: 'Rush production', priceLabel: '20–30% of the base rate' },
-  rawVideo: { name: 'Raw video files', priceLabel: '₩50,000' },
-  metaAds: { name: 'Meta ads creative use (1 month)', priceLabel: 'To be discussed' },
+  rush: { name: 'Rush production (delivery within 1 week)', priceLabel: '20% of the base rate' },
+  cleanVideo: { name: 'Clean version (no captions)', priceLabel: '₩20,000' },
+  metaAds: { name: 'Meta ads creative use', priceLabel: '1 month free · then ₩20,000/month' },
   detailPage: { name: 'Product page · online store use', priceLabel: 'To be discussed' },
   exclusivity: { name: 'Competitor exclusivity', priceLabel: 'Depends on the period' },
   extraRevision: { name: 'Revisions beyond 2', priceLabel: 'Per revision · to be discussed' },
@@ -59,7 +59,7 @@ export const terms = [
   },
   {
     label: 'Upload schedule',
-    value: 'Uploaded on the agreed date after about 5–7 days (feed) or 7–14 days (Reels) of production',
+    value: 'Uploaded on the agreed date after about 5–7 days (feed) or 7–10 days (Reels) of production',
   },
   { label: 'Product · shipping · shooting costs', value: 'Agreed per campaign' },
 ]

@@ -21,6 +21,13 @@
   margin-bottom: 44px;
 }
 
+/* PC에서는 설명 문구가 한 줄로 이어지도록 폭 제한을 풉니다. */
+@media (min-width: 900px) {
+  .section-head {
+    max-width: none;
+  }
+}
+
 .section-head__index {
   font-size: 13px;
   color: var(--oak-300);

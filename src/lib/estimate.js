@@ -2,7 +2,7 @@ import { profile } from '../data/profile.js'
 
 // 선택 상태와 (언어에 맞게 번역된) 상품 정보를 받아 예상 광고비를 계산합니다.
 // 비율 옵션(재게시·급행)은 선택한 상품 합계(기본 단가)에만 적용됩니다.
-export function estimate({ quantities, retentionId, selectedExtras, pricing, quoteCopy }) {
+export function estimate({ quantities, retentionId, selectedExtras, extraMonths = {}, pricing, quoteCopy }) {
   const products = pricing.productGroups.flatMap((group) => group.items)
 
   const productLines = products
@@ -39,10 +39,19 @@ export function estimate({ quantities, retentionId, selectedExtras, pricing, quo
     } else if (extra.type === 'fixed') {
       if (extra.requiresVideo && !hasVideo) continue
       extraLines.push({ id: extra.id, label: extra.name, min: extra.price, max: extra.price })
+    } else if (extra.type === 'monthly') {
+      const months = extraMonths[extra.id] ?? extra.includedMonths
+      const fee = Math.max(0, months - extra.includedMonths) * extra.pricePerMonth
+      extraLines.push({
+        id: extra.id,
+        label: `${extra.name} (${quoteCopy.months(months)})`,
+        min: fee,
+        max: fee,
+      })
     } else if (extra.type === 'percent') {
       extraLines.push({
         id: extra.id,
-        label: `${extra.name} (${extra.min * 100}~${extra.max * 100}%)`,
+        label: `${extra.name} (${extra.min === extra.max ? extra.min * 100 : `${extra.min * 100}~${extra.max * 100}`}%)`,
         min: base.min * extra.min,
         max: base.max * extra.max,
       })

@@ -53,7 +53,7 @@ export function createKoCopy({ i, f, account }) {
     audience: {
       eyebrow: 'Audience',
       title: '이런 분들이 보고 있어요',
-      desc: '웨딩 준비부터 신혼 집 꾸미기까지, 생활 공간에 관심이 많은 2030 타깃에게 닿습니다.',
+      desc: 'TV 대신 책과 빔프로젝터를 둔 5평 거실 서재에서, 작은 집을 현실적으로 꾸미고 싶은 2030에게 닿습니다.',
       targets,
       info: [
         { label: '주요 카테고리', value: profile.categories.join(' · ') },
@@ -134,13 +134,14 @@ export function createKoCopy({ i, f, account }) {
       ],
       promo: {
         eyebrow: 'Sponsored Content',
-        title: '광고 표기 콘텐츠에서도 비슷한 반응이 유지돼요',
+        title: '광고 표기 콘텐츠에서도 반응이 이어져요',
         body: (
           <>
-            최근 홍보 콘텐츠 {i.promoContentCount}건의 평균 참여율은 <strong>{f.pct(i.promoRate)}</strong>로,
-            일반 콘텐츠 평균 {f.pct(i.organicSimpleRate)}와 유사한 수준을 유지하고 있습니다. 콘텐츠별 참여율은{' '}
-            {f.pct(i.promoRateMin, 1)}~{f.pct(i.promoRateMax, 1)} 범위로 나타났으며, 정보성과 제품 활용도가
-            높은 콘텐츠에서 저장 · 댓글 반응이 상대적으로 높았습니다.
+            최근 홍보 콘텐츠 {i.promoContentCount}건의 평균 참여율은 <strong>{f.pct(i.promoRate)}</strong>
+            이며, 콘텐츠별로 {f.pct(i.promoRateMin, 1)}~{f.pct(i.promoRateMax, 1)} 범위로 나타났습니다. 일반
+            콘텐츠 평균({f.pct(i.organicSimpleRate)})에는 수만 명에게 도달한 바이럴 릴스가 포함되어 있으며,
+            홍보 콘텐츠 중에서는 제품을 실제 생활 공간에서 자세히 보여준 피드 게시물의 반응이 상대적으로
+            높았습니다.
           </>
         ),
         compare: [
@@ -162,6 +163,7 @@ export function createKoCopy({ i, f, account }) {
         `참여율 · 저장률 · 공유율은 최근 ${i.reelCount}개 릴스의 전체 반응을 전체 도달로 나눈 값입니다.`,
         '콘텐츠별 링크 클릭 데이터는 제공되지 않아 링크 클릭률은 계정 전체 기준입니다.',
         `홍보 콘텐츠 지표는 ${i.promoContentCount}건 각 비율의 단순 평균이며, 일반 콘텐츠 평균도 최근 릴스 중 홍보 콘텐츠를 제외한 ${i.organicCount}건의 단순 평균으로 같은 방식으로 비교했습니다.`,
+        '브랜드 광고로 별도 집행되어 도달 대부분이 유료 노출인 홍보 콘텐츠는 참여율이 왜곡되어 평균에서 제외했습니다.',
       ],
     },
     strengths: {
@@ -169,7 +171,7 @@ export function createKoCopy({ i, f, account }) {
       title: '콘텐츠 강점',
       quote: (
         <>
-          새로운 잠재고객에게 닿고, 광고 표기 후에도 저장 · 댓글 반응이 이어지는 콘텐츠를 만듭니다.
+          새로운 잠재고객에게 닿고, 광고 표기 후에도 반응이 이어지는 콘텐츠를 만듭니다.
           <br />
           인테리어 · 생활용품 제품을 실제 생활 공간에서 소개하는 캠페인에 적합합니다.
         </>
@@ -181,14 +183,14 @@ export function createKoCopy({ i, f, account }) {
           desc: `최근 ${i.reelCount}개 릴스 중 ${i.reelsAboveTwiceFollowers}개가 팔로워 수의 2배 이상 도달했습니다.`,
         },
         {
-          title: '광고 표기 후에도 유지되는 반응',
+          title: '광고 표기 후에도 이어지는 반응',
           stat: f.pct(i.promoRate),
-          desc: `홍보 콘텐츠 ${i.promoContentCount}건 평균 참여율로, 일반 콘텐츠와 비슷한 반응을 유지합니다.`,
+          desc: `최근 홍보 콘텐츠 ${i.promoContentCount}건의 평균 참여율이며, 콘텐츠별 최고 ${f.pct(i.promoRateMax, 1)}까지 나타났습니다.`,
         },
         {
           title: '구매 고려로 이어지는 저장',
-          stat: f.pct(i.promoAverages.saveRate),
-          desc: '홍보 콘텐츠 평균 저장률이며, 정보성이 높은 콘텐츠에서 상대적으로 높은 저장 반응이 나타났습니다.',
+          stat: f.pct(i.saveRate),
+          desc: `최근 ${i.reelCount}개 릴스의 도달 대비 저장률이며, 정보성이 높은 콘텐츠에서는 최고 ${f.pct(i.saveRateMax, 1)}까지 나타났습니다.`,
         },
         {
           title: '생활 공간 속 자연스러운 노출',
@@ -208,7 +210,8 @@ export function createKoCopy({ i, f, account }) {
       extrasTitle: '추가 비용 및 2차 활용',
       extrasHead: { request: '추가 요청', price: '추가 비용' },
       extras,
-      extrasNote: '메타 광고 집행, 상세페이지 사용, 원본 제공은 별도 권리로 기본 단가에 포함되지 않습니다.',
+      extrasNote:
+        '메타 광고 소재 활용은 1개월까지 무료이며, 이후 1개월마다 20,000원이 추가됩니다. 상세페이지 · 자사몰 활용은 별도 협의입니다.',
     },
     rationale: {
       eyebrow: 'Pricing Basis',
@@ -218,7 +221,7 @@ export function createKoCopy({ i, f, account }) {
         `중앙 도달이 팔로워 수의 약 ${i.reachMedianMultiple.toFixed(1)}배입니다.`,
         `최근 ${i.reelCount}개 릴스 중 ${i.reelsAboveTwiceFollowers}개가 팔로워 수의 2배 이상 도달했습니다.`,
         `최근 90일 조회수의 ${f.pct(i.nonFollowerViewShare, 0)}가 비팔로워에게서 발생했습니다.`,
-        `홍보 콘텐츠 ${i.promoContentCount}건 평균 참여율 ${f.pct(i.promoRate)}로, 일반 콘텐츠(${f.pct(i.organicSimpleRate)})와 비슷한 반응을 유지합니다.`,
+        `광고 표기 콘텐츠 ${i.promoContentCount}건도 평균 참여율 ${f.pct(i.promoRate)}(콘텐츠별 ${f.pct(i.promoRateMin, 1)}~${f.pct(i.promoRateMax, 1)})의 반응을 보였습니다.`,
         '성과만으로 단가를 일괄 인상하지 않고, 촬영 · 편집 범위와 제작 난이도에 따라 차등 적용합니다.',
         '계정 주제와 인테리어 · 생활용품 광고의 적합도가 높습니다.',
       ],
@@ -233,7 +236,8 @@ export function createKoCopy({ i, f, account }) {
         retention: '콘텐츠 유지 기간',
         extras: '추가 옵션',
       },
-      videoOnly: '릴스 또는 피드 + 릴스 패키지 선택 시 가능',
+      videoOnly: '릴스가 포함된 상품 선택 시 가능',
+      monthsLabel: (name) => `${name} 기간`,
       quantity: (name) => `${name} 수량`,
       decrease: (name) => `${name} 수량 줄이기`,
       increase: (name) => `${name} 수량 늘리기`,
@@ -285,6 +289,7 @@ export function createKoCopy({ i, f, account }) {
         '- 제품 제공 및 배송 조건: ',
       ],
       retentionLabel: (label) => `콘텐츠 유지 기간 ${label}`,
+      months: (n) => `${n}개월`,
       mailSubject: `[광고 문의] @${profile.handle} 캠페인 견적`,
     },
   }
