@@ -29,9 +29,17 @@ export default function App() {
     const markUserScroll = () => {
       userScrolled = true
     }
+    // 사파리 · 인앱 브라우저에서도 동작하도록 부드러운 스크롤을 잠시 끄고 좌표로 바로 이동합니다.
     const jump = () => {
-      if (userScrolled) return
-      document.getElementById(id)?.scrollIntoView({ behavior: 'instant', block: 'start' })
+      const target = document.getElementById(id)
+      if (userScrolled || !target) return
+      const root = document.documentElement
+      const offset = parseFloat(getComputedStyle(root).scrollPaddingTop) || 0
+      const top = target.getBoundingClientRect().top + window.scrollY - offset
+      const prev = root.style.scrollBehavior
+      root.style.scrollBehavior = 'auto'
+      window.scrollTo(0, top)
+      root.style.scrollBehavior = prev
     }
 
     window.addEventListener('wheel', markUserScroll, { passive: true, once: true })
@@ -41,8 +49,10 @@ export default function App() {
 
     const frame = requestAnimationFrame(jump)
     document.fonts?.ready.then(jump)
+    const timers = [300, 800, 1500].map((ms) => setTimeout(jump, ms))
     return () => {
       cancelAnimationFrame(frame)
+      timers.forEach(clearTimeout)
       window.removeEventListener('load', jump)
       window.removeEventListener('wheel', markUserScroll)
       window.removeEventListener('touchstart', markUserScroll)
