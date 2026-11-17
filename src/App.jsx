@@ -17,6 +17,39 @@ export default function App() {
   const navItems = copy.nav.items
   const [activeSection, setActiveSection] = useState(navItems[0].href.slice(1))
 
+  // 주소에 #calculator 같은 해시가 붙어 들어오면 해당 영역으로 바로 이동합니다.
+  // 브라우저는 React가 화면을 그리기 전에 해시를 찾기 때문에, 그린 뒤에 직접 스크롤합니다.
+  // 폰트 · 이미지가 늦게 로드되며 위치가 밀릴 수 있어 로드 완료 후 한 번 더 맞춥니다.
+  useEffect(() => {
+    const id = decodeURIComponent(window.location.hash.slice(1))
+    if (!id) return
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual'
+
+    let userScrolled = false
+    const markUserScroll = () => {
+      userScrolled = true
+    }
+    const jump = () => {
+      if (userScrolled) return
+      document.getElementById(id)?.scrollIntoView({ behavior: 'instant', block: 'start' })
+    }
+
+    window.addEventListener('wheel', markUserScroll, { passive: true, once: true })
+    window.addEventListener('touchstart', markUserScroll, { passive: true, once: true })
+    window.addEventListener('keydown', markUserScroll, { once: true })
+    window.addEventListener('load', jump)
+
+    const frame = requestAnimationFrame(jump)
+    document.fonts?.ready.then(jump)
+    return () => {
+      cancelAnimationFrame(frame)
+      window.removeEventListener('load', jump)
+      window.removeEventListener('wheel', markUserScroll)
+      window.removeEventListener('touchstart', markUserScroll)
+      window.removeEventListener('keydown', markUserScroll)
+    }
+  }, [])
+
   useEffect(() => {
     const sections = navItems
       .map((item) => ({ id: item.href.slice(1), el: document.getElementById(item.href.slice(1)) }))
