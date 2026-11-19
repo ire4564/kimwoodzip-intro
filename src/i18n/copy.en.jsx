@@ -49,7 +49,7 @@ export function createEnCopy({ i, f, account, pricing }) {
         { label: 'Median Reels reach', value: f.approx(i.reachMedian), unit: '' },
       ],
       meta: ({ days, months }) =>
-        `Opened ${account.y}.${account.m}.${account.d} · day ${days} (about ${months} months) · ${profile.posts} posts · 2–3 posts a week`,
+        `Opened ${account.y}.${account.m}.${account.d} · day ${days} (about ${months} months) · ${profile.posts} posts · 3–5 posts a week`,
       actions: { calculator: 'Calculate a budget', contact: 'Start a campaign' },
       slider: {
         prev: 'Previous photo',
@@ -90,7 +90,7 @@ export function createEnCopy({ i, f, account, pricing }) {
       info: [
         { label: 'Main categories', value: 'Interior · Living · Newlywed life' },
         { label: 'Main followers', value: 'South Korea · 20s–30s · women' },
-        { label: 'Posting frequency', value: '2–3 posts a week (carousels and Reels)' },
+        { label: 'Posting frequency', value: '3–5 posts a week (carousels and Reels)' },
       ],
     },
     metrics: {

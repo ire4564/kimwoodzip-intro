@@ -10,11 +10,11 @@ export const profile = {
   introSub:
     '실제 생활 공간에서 제품을 자연스럽게 소개할 수 있어 인테리어 · 가구 · 생활용품 브랜드와 높은 콘텐츠 적합도를 보유하고 있습니다',
   keywords: ['월넛 우드톤', '코티지 인테리어', '홈카페', '신혼생활', '플랜테리어'],
-  posts: 68,
+  posts: 70,
   categories: ['인테리어', '리빙', '신혼생활'],
   audience: '대한민국 · 2030 · 여성',
   openedAt: '2026-05-26',
-  postingFrequency: '주 2~3회',
+  postingFrequency: '주 3~5회',
   postingFormats: '캐러셀 · 릴스 포함',
 }
 
