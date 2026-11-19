@@ -53,7 +53,7 @@ export function createKoCopy({ i, f, account }) {
     audience: {
       eyebrow: 'Audience',
       title: '이런 분들이 보고 있어요',
-      desc: 'TV 대신 책과 빔프로젝터를 둔 5평 거실 서재에서, 작은 집을 현실적으로 꾸미고 싶은 2030에게 닿습니다.',
+      desc: '5평 거실 서재에서 함께 사는 신혼부부의 일상으로, 신혼생활과 작은 집 꾸미기가 궁금한 2030에게 닿습니다.',
       targets,
       info: [
         { label: '주요 카테고리', value: profile.categories.join(' · ') },

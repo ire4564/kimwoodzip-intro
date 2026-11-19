@@ -60,25 +60,28 @@ export function createEnCopy({ i, f, account, pricing }) {
     audience: {
       eyebrow: 'Audience',
       title: 'Who is watching',
-      desc: 'From a TV-free 5-pyeong living-room library to people in their 20s–30s making a small home work.',
+      desc: 'Everyday newlywed life in a 5-pyeong living-room library, for people in their 20s–30s curious about married life.',
       targets: [
+        {
+          title: 'Newlyweds and couples to be',
+          desc: 'Couples in their 20s–30s curious how other newlyweds furnish their home and live together',
+        },
         {
           title: 'Small living-room library',
           desc: 'People who want to turn a small, TV-free living room into a library or hobby space',
         },
         {
-          title: 'Newlyweds and couples to be',
-          desc: 'Couples in their 20s–30s furnishing a first home on a realistic budget',
-        },
-        {
-          title: 'Layout and budget',
-          desc: 'People looking for sofa and chair pairings, shelving and lighting layouts with real prices',
+          title: 'First home setup',
+          desc: 'People setting up a first home who want realistic guides on furniture, layout and budget',
         },
         {
           title: 'Walnut and wood tones',
           desc: 'People who love walnut tones, solid wood furniture and a wood-café mood',
         },
-        { title: 'Home café · home bar', desc: 'People who want a home café by day and a home bar by night' },
+        {
+          title: 'Home café · home bar',
+          desc: 'Couples who want a home café by day and a home bar by night',
+        },
         {
           title: 'Older apartments',
           desc: 'People who want to refresh an older apartment through layout and styling',
