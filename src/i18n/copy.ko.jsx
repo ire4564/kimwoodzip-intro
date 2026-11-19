@@ -91,7 +91,7 @@ export function createKoCopy({ i, f, account }) {
           label: '중앙 도달',
           value: `약 ${f.approx(i.reachMedian)}`,
           unit: '명',
-          sub: `팔로워 수의 약 ${i.reachMedianMultiple.toFixed(1)}배 · 보수적 기대치`,
+          sub: `팔로워 수의 약 ${i.reachMedianMultiple.toFixed(1)}배`,
           tone: 'strong',
         },
         {
@@ -159,7 +159,7 @@ export function createKoCopy({ i, f, account }) {
         ],
       },
       footnotes: [
-        `평균 도달에는 ${f.num(i.reachMax)}명에게 도달한 바이럴 콘텐츠가 포함되어 있어, 일반적인 기대치는 중앙값을 기준으로 보수적으로 산정합니다.`,
+        `최근 ${i.reelCount}개 릴스의 도달은 ${f.num(i.reachMin)}명부터 ${f.num(i.reachMax)}명까지 콘텐츠별 편차가 커서, 평균 · 중앙 도달이 콘텐츠 1건의 도달을 보장하지는 않습니다.`,
         `참여율 · 저장률 · 공유율은 최근 ${i.reelCount}개 릴스의 전체 반응을 전체 도달로 나눈 값입니다.`,
         '콘텐츠별 링크 클릭 데이터는 제공되지 않아 링크 클릭률은 계정 전체 기준입니다.',
         `홍보 콘텐츠 지표는 ${i.promoContentCount}건 각 비율의 단순 평균이며, 일반 콘텐츠 평균도 최근 릴스 중 홍보 콘텐츠를 제외한 ${i.organicCount}건의 단순 평균으로 같은 방식으로 비교했습니다.`,

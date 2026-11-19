@@ -52,6 +52,7 @@ function computeInsights() {
     reachMean,
     reachMedian,
     reachMax: Math.max(...reels.map((r) => r.reach)),
+    reachMin: Math.min(...reels.map((r) => r.reach)),
     reachMeanMultiple: reachMean / account.followers,
     reachMedianMultiple: reachMedian / account.followers,
     reelsAboveTwiceFollowers: reels.filter((r) => r.reach >= twiceFollowers).length,

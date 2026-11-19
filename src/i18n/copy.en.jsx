@@ -120,7 +120,7 @@ export function createEnCopy({ i, f, account, pricing }) {
           label: 'Median reach',
           value: `~${f.approx(i.reachMedian)}`,
           unit: '',
-          sub: `About ${i.reachMedianMultiple.toFixed(1)}× followers · conservative baseline`,
+          sub: `About ${i.reachMedianMultiple.toFixed(1)}× followers`,
           tone: 'strong',
         },
         {
@@ -188,7 +188,7 @@ export function createEnCopy({ i, f, account, pricing }) {
         ],
       },
       footnotes: [
-        `Average reach includes viral posts, the largest reaching ${f.num(i.reachMax)} accounts, so the median is used as the realistic baseline.`,
+        `Reach across the last ${i.reelCount} Reels ranged from ${f.num(i.reachMin)} to ${f.num(i.reachMax)} accounts, so average and median reach do not guarantee the reach of any single post.`,
         `Engagement, save and share rates divide all interactions across the last ${i.reelCount} Reels by total reach.`,
         'Per-post link click data is not available, so the link click rate is measured across the whole account.',
         `Sponsored metrics are a simple average of each of the ${i.promoContentCount} posts, and regular content is averaged the same way across the ${i.organicCount} non-sponsored Reels.`,
