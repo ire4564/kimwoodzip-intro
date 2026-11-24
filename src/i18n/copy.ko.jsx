@@ -1,5 +1,5 @@
 import { insightsMeta } from '../data/insights.js'
-import { extras, productGroups, terms } from '../data/pricing.js'
+import { extraCategories, extras, productGroups, terms } from '../data/pricing.js'
 import {
   homePhotos,
   inquiryChecklist,
@@ -208,10 +208,13 @@ export function createKoCopy({ i, f, account }) {
       termsTitle: '진행 조건',
       terms,
       extrasTitle: '추가 비용 및 2차 활용',
+      appliesLabel: (appliesTo) =>
+        appliesTo.length > 1 ? '피드 · 스레드 · 릴스' : appliesTo[0] === 'video' ? '릴스' : '피드 · 스레드',
+      extraCategories,
       extrasHead: { request: '추가 요청', price: '추가 비용' },
       extras,
       extrasNote:
-        '메타 광고 소재 활용은 1개월까지 무료이며, 이후 1개월마다 20,000원이 추가됩니다. 상세페이지 · 자사몰 활용은 별도 협의입니다.',
+        '메타 광고 소재 · 상세페이지 · 자사몰 활용은 1개월까지 무료이며, 이후 1개월마다 20,000원이 추가됩니다. 비율로 표시된 옵션은 적용 대상 상품의 단가 합계를 기준으로 합니다.',
     },
     rationale: {
       eyebrow: 'Pricing Basis',
@@ -222,7 +225,6 @@ export function createKoCopy({ i, f, account }) {
         `최근 ${i.reelCount}개 릴스 중 ${i.reelsAboveTwiceFollowers}개가 팔로워 수의 2배 이상 도달했습니다.`,
         `최근 90일 조회수의 ${f.pct(i.nonFollowerViewShare, 0)}가 비팔로워에게서 발생했습니다.`,
         `광고 표기 콘텐츠 ${i.promoContentCount}건도 평균 참여율 ${f.pct(i.promoRate)}(콘텐츠별 ${f.pct(i.promoRateMin, 1)}~${f.pct(i.promoRateMax, 1)})의 반응을 보였습니다.`,
-        '성과만으로 단가를 일괄 인상하지 않고, 촬영 · 편집 범위와 제작 난이도에 따라 차등 적용합니다.',
         '계정 주제와 인테리어 · 생활용품 광고의 적합도가 높습니다.',
       ],
     },
@@ -236,7 +238,14 @@ export function createKoCopy({ i, f, account }) {
         retention: '콘텐츠 유지 기간',
         extras: '추가 옵션',
       },
-      videoOnly: '릴스가 포함된 상품 선택 시 가능',
+      availableWith: (appliesTo) =>
+        appliesTo.includes('images') ? '피드 · 스레드 · 릴스 선택 시 가능' : '릴스가 포함된 상품 선택 시 가능',
+      imageTier: {
+        label: (name) => `${name} 이미지 장수`,
+        base: '5장까지',
+        baseNote: '추가 없음',
+        extra: '6~10장',
+      },
       monthsLabel: (name) => `${name} 기간`,
       quantity: (name) => `${name} 수량`,
       decrease: (name) => `${name} 수량 줄이기`,
@@ -290,6 +299,7 @@ export function createKoCopy({ i, f, account }) {
       ],
       retentionLabel: (label) => `콘텐츠 유지 기간 ${label}`,
       months: (n) => `${n}개월`,
+      imageExtra: (name) => `${name} 6~10장 추가`,
       mailSubject: `[광고 문의] @${profile.handle} 캠페인 견적`,
     },
   }

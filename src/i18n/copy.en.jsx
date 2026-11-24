@@ -237,10 +237,13 @@ export function createEnCopy({ i, f, account, pricing }) {
       termsTitle: 'Terms',
       terms,
       extrasTitle: 'Add-ons and further use',
+      appliesLabel: (appliesTo) =>
+        appliesTo.length > 1 ? 'Feed · Threads · Reels' : appliesTo[0] === 'video' ? 'Reels' : 'Feed · Threads',
+      extraCategories: pricing.extraCategories,
       extrasHead: { request: 'Request', price: 'Additional cost' },
       extras: pricing.extras,
       extrasNote:
-        'Meta ads creative use is free for the first month, then ₩20,000 for each additional month. Product page and online store use is discussed separately.',
+        'Meta ads creative use and product page · online store use are free for the first month, then ₩20,000 for each additional month. Percentage options are based on the total rate of the products they apply to.',
     },
     rationale: {
       eyebrow: 'Pricing Basis',
@@ -251,7 +254,6 @@ export function createEnCopy({ i, f, account, pricing }) {
         `${i.reelsAboveTwiceFollowers} of the last ${i.reelCount} Reels reached more than twice the follower count.`,
         `${f.pct(i.nonFollowerViewShare, 0)} of views over the last 90 days came from non-followers.`,
         `Sponsored posts still average ${f.pct(i.promoRate)} engagement (${f.pct(i.promoRateMin, 1)}–${f.pct(i.promoRateMax, 1)} per post).`,
-        'Rates are not raised across the board on performance alone; they follow the scope and difficulty of production.',
         'The account topic is a close fit for interior and household brands.',
       ],
     },
@@ -265,7 +267,16 @@ export function createEnCopy({ i, f, account, pricing }) {
         retention: 'Content retention',
         extras: 'Add-ons',
       },
-      videoOnly: 'Available with products that include Reels',
+      availableWith: (appliesTo) =>
+        appliesTo.includes('images')
+          ? 'Available with feed, Threads or Reels'
+          : 'Available with products that include Reels',
+      imageTier: {
+        label: (name) => `${name} image count`,
+        base: 'Up to 5',
+        baseNote: 'No extra',
+        extra: '6–10',
+      },
       monthsLabel: (name) => `${name} period`,
       quantity: (name) => `${name} quantity`,
       decrease: (name) => `Decrease ${name} quantity`,
@@ -357,6 +368,7 @@ export function createEnCopy({ i, f, account, pricing }) {
       ],
       retentionLabel: (label) => `Content retention ${label}`,
       months: (n) => `${n} month${n > 1 ? 's' : ''}`,
+      imageExtra: (name) => `${name} · 6–10 images`,
       mailSubject: `[Campaign enquiry] @${profile.handle} estimate`,
     },
   }

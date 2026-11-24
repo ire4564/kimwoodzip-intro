@@ -6,8 +6,8 @@ export const groupLabels = {
     leadTime: 'About 7–10 days after receiving the product',
   },
   feed: {
-    title: 'Feed',
-    summary: 'Product caption · brand tag · 1 revision included',
+    title: 'Feed · Threads',
+    summary: 'Product caption · brand tag · 1 revision included · up to 5 images included',
     leadTime: 'About 5–7 days after receiving the product',
   },
   package: {
@@ -24,7 +24,8 @@ export const groupLabels = {
 
 export const itemLabels = {
   reels: { name: 'Reels', desc: '' },
-  'feed-image': { name: 'Feed image', desc: '5 photos standard · up to 10' },
+  'feed-image': { name: 'Instagram feed', desc: '5 photos standard · up to 10' },
+  thread: { name: 'Threads post', desc: '5 photos standard · up to 10' },
   'pkg-feed-reels': { name: 'Feed + Reels package', desc: '1 Reels + 1 feed post', badge: 'Popular' },
   'pkg-reels-story': { name: 'Reels + Story package', desc: '1 Reels + 1 story' },
   story: { name: 'Story', desc: '' },
@@ -36,14 +37,20 @@ export const retentionLabels = {
   over: { label: 'Over 1 year', note: 'To be discussed' },
 }
 
+export const categoryLabels = {
+  secondary: { title: 'Further use' },
+  production: { title: 'Production' },
+}
+
 export const extraLabels = {
-  repost: { name: 'Repost on the brand account', priceLabel: '10–20% of the base rate' },
-  rush: { name: 'Rush production (delivery within 1 week)', priceLabel: '20% of the base rate' },
-  cleanVideo: { name: 'Clean version (no captions)', priceLabel: '₩20,000' },
   metaAds: { name: 'Meta ads creative use', priceLabel: '1 month free · then ₩20,000/month' },
-  detailPage: { name: 'Product page · online store use', priceLabel: 'To be discussed' },
-  exclusivity: { name: 'Competitor exclusivity', priceLabel: 'Depends on the period' },
+  detailPage: { name: 'Product page · online store use', priceLabel: '1 month free · then ₩20,000/month' },
+  exclusivity: { name: 'Competitor exclusivity', priceLabel: 'To be discussed' },
+  cleanVideo: { name: 'Clean version (no captions)', priceLabel: '30% of the base rate' },
+  repost: { name: 'Repost on the brand account', priceLabel: '20% of the base rate' },
+  rush: { name: 'Rush production (delivery within 1 week)', priceLabel: '20% of the base rate' },
   extraRevision: { name: 'Revisions beyond 2', priceLabel: 'Per revision · to be discussed' },
+  extraImages: { name: 'Extra images for feed · Threads (6–10)', priceLabel: '₩30,000 per post' },
 }
 
 export const terms = [
@@ -59,7 +66,7 @@ export const terms = [
   },
   {
     label: 'Upload schedule',
-    value: 'Uploaded on the agreed date after about 5–7 days (feed) or 7–10 days (Reels) of production',
+    value: 'Uploaded on the agreed date after about 5–7 days (feed · Threads) or 7–10 days (Reels) of production',
   },
   { label: 'Product · shipping · shooting costs', value: 'Agreed per campaign' },
 ]

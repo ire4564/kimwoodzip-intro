@@ -26,7 +26,7 @@ export const recentReels = [
 
 // 계정 전체 (최근 90일)
 export const accountInsights = {
-  followers: 2495,
+  followers: 3387,
   views: 1035000,
   nonFollowerViewShare: 0.953,
   reachedAccounts: 656000,

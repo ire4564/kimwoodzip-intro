@@ -75,6 +75,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(258px, 1fr));
   gap: 10px;
+  align-items: start;
 }
 
 .calc-check {
@@ -116,6 +117,7 @@
 
 .calc-product {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 8px;
   padding: 8px 10px 8px 8px;
@@ -125,6 +127,60 @@
   transition:
     border-color 0.15s,
     background-color 0.15s;
+}
+
+/* 피드 · 스레드 카드 안 이미지 장수 선택 */
+.calc-product__tiers {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 6px;
+  flex-basis: 100%;
+  padding: 0 0 4px 8px;
+}
+
+.calc-product__tier {
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 9px 12px;
+  white-space: nowrap;
+  border-radius: 10px;
+  border: 1.5px solid var(--line);
+  background: var(--paper);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    border-color 0.15s,
+    background-color 0.15s;
+}
+
+.calc-product__tier input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.calc-product__tier:has(input:focus-visible) {
+  outline: 2px solid var(--walnut-500);
+  outline-offset: 2px;
+}
+
+.calc-product__tier small {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--ink-mute);
+}
+
+.calc-product__tier.is-active {
+  border-color: var(--walnut-500);
+  background: #fff;
+}
+
+.calc-product__tier.is-active small {
+  color: var(--walnut-500);
 }
 
 .calc-product.is-active {
@@ -255,6 +311,10 @@
 .calc-extras {
   display: grid;
   gap: 8px;
+}
+
+.calc-extra-group + .calc-extra-group {
+  margin-top: 18px;
 }
 
 .calc-extra {

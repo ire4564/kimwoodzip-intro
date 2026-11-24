@@ -223,6 +223,26 @@
   font-weight: 600;
 }
 
+.extra-table__category th {
+  padding: 18px 0 6px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--walnut-500);
+  text-align: left !important;
+}
+
+.extra-table tbody:first-of-type .extra-table__category th {
+  padding-top: 4px;
+}
+
+.extra-table__applies {
+  display: block;
+  margin-top: 2px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--ink-mute);
+}
+
 /* Rationale */
 .rationale {
   padding: 80px 0;

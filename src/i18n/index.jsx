@@ -1,5 +1,6 @@
 import { createContext, useContext, useMemo } from 'react'
 import {
+  extraCategories as koCategories,
   extras as koExtras,
   productGroups as koGroups,
   retentionOptions as koRetention,
@@ -9,7 +10,7 @@ import { profile } from '../data/profile.js'
 import { createFormat } from './format.js'
 import { createKoCopy } from './copy.ko.jsx'
 import { createEnCopy } from './copy.en.jsx'
-import { extraLabels, groupLabels, itemLabels, retentionLabels } from './pricing.en.js'
+import { categoryLabels, extraLabels, groupLabels, itemLabels, retentionLabels } from './pricing.en.js'
 
 export const LANGUAGES = [
   { code: 'ko', name: '한국어', short: 'KR', path: '' },
@@ -19,7 +20,7 @@ export const LANGUAGES = [
 // 금액은 src/data/pricing.js 하나만 쓰고, 영어일 때 이름과 설명만 바꿔 끼웁니다.
 function localizePricing(lang) {
   if (lang !== 'en') {
-    return { productGroups: koGroups, retentionOptions: koRetention, extras: koExtras }
+    return { productGroups: koGroups, retentionOptions: koRetention, extras: koExtras, extraCategories: koCategories }
   }
   return {
     productGroups: koGroups.map((group) => ({
@@ -29,6 +30,7 @@ function localizePricing(lang) {
     })),
     retentionOptions: koRetention.map((option) => ({ ...option, ...retentionLabels[option.id] })),
     extras: koExtras.map((extra) => ({ ...extra, ...extraLabels[extra.id] })),
+    extraCategories: koCategories.map((c) => ({ ...c, ...categoryLabels[c.id] })),
   }
 }
 

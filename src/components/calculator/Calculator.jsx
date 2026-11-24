@@ -18,6 +18,7 @@ export default function Calculator() {
   const [retentionId, setRetentionId] = useState('6m')
   const [selectedExtras, setSelectedExtras] = useState(() => new Set())
   const [extraMonths, setExtraMonths] = useState({})
+  const [imageTiers, setImageTiers] = useState({})
   const [summaryVisible, setSummaryVisible] = useState(false)
   const [sectionVisible, setSectionVisible] = useState(false)
   const summaryRef = useRef(null)
@@ -28,6 +29,7 @@ export default function Calculator() {
     retentionId,
     selectedExtras,
     extraMonths,
+    imageTiers,
     pricing,
     quoteCopy: copy.quote,
   })
@@ -60,6 +62,7 @@ export default function Calculator() {
     setRetentionId('6m')
     setSelectedExtras(new Set())
     setExtraMonths({})
+    setImageTiers({})
   }
 
   return (
@@ -78,6 +81,9 @@ export default function Calculator() {
             extraMonths={extraMonths}
             onExtraMonthsChange={(id, months) => setExtraMonths((prev) => ({ ...prev, [id]: months }))}
             hasVideo={result.hasVideo}
+            hasImages={result.hasImages}
+            imageTiers={imageTiers}
+            onImageTierChange={(id, tier) => setImageTiers((prev) => ({ ...prev, [id]: tier }))}
           />
           <EstimateSummary result={result} onReset={reset} summaryRef={summaryRef} />
         </div>

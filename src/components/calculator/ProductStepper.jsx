@@ -3,7 +3,15 @@ import { useCopy } from '../../i18n/index.jsx'
 export const MAX_QTY = 10
 
 // 상품 한 칸: 체크(선택/해제)와 수량 조절
-export default function ProductStepper({ product, value: rawValue, onChange }) {
+// 피드 · 스레드처럼 이미지가 들어가는 상품은 선택하면 이미지 장수(5장까지 / 6~10장)도 고릅니다.
+export default function ProductStepper({
+  product,
+  value: rawValue,
+  onChange,
+  imageExtra,
+  imageTier = 'base',
+  onImageTierChange,
+}) {
   const { copy, f } = useCopy()
   const t = copy.calculator
   // 상품 목록이 바뀌어 수량이 비어 있어도 0으로 다루도록 (NaN 방지)
@@ -43,6 +51,25 @@ export default function ProductStepper({ product, value: rawValue, onChange }) {
           +
         </button>
       </div>
+      {imageExtra && active && (
+        <div className="calc-product__tiers" role="radiogroup" aria-label={t.imageTier.label(product.name)}>
+          {[
+            { id: 'base', label: t.imageTier.base, note: t.imageTier.baseNote },
+            { id: 'extra', label: t.imageTier.extra, note: `+${f.won(imageExtra.price)}` },
+          ].map((tier) => (
+            <label key={tier.id} className={`calc-product__tier${imageTier === tier.id ? ' is-active' : ''}`}>
+              <input
+                type="radio"
+                name={`image-tier-${product.id}`}
+                checked={imageTier === tier.id}
+                onChange={() => onImageTierChange(tier.id)}
+              />
+              <span>{tier.label}</span>
+              <small>{tier.note}</small>
+            </label>
+          ))}
+        </div>
+      )}
     </div>
   )
 }

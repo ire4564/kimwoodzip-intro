@@ -68,14 +68,26 @@ export default function RateCard() {
                   <th scope="col">{t.extrasHead.price}</th>
                 </tr>
               </thead>
-              <tbody>
-                {t.extras.map((extra) => (
-                  <tr key={extra.id}>
-                    <td>{extra.name}</td>
-                    <td className={extra.type === 'negotiable' ? 'is-muted' : ''}>{extra.priceLabel}</td>
+              {t.extraCategories.map((category) => (
+                <tbody key={category.id}>
+                  <tr className="extra-table__category">
+                    <th scope="rowgroup" colSpan={2}>
+                      {category.title}
+                    </th>
                   </tr>
-                ))}
-              </tbody>
+                  {t.extras
+                    .filter((extra) => extra.category === category.id)
+                    .map((extra) => (
+                      <tr key={extra.id}>
+                        <td>
+                          {extra.name}
+                          <span className="extra-table__applies">{t.appliesLabel(extra.appliesTo)}</span>
+                        </td>
+                        <td className={extra.type === 'negotiable' ? 'is-muted' : ''}>{extra.priceLabel}</td>
+                      </tr>
+                    ))}
+                </tbody>
+              ))}
             </table>
             <p className="panel__note">{t.extrasNote}</p>
           </div>
