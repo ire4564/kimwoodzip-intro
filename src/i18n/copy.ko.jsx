@@ -214,7 +214,7 @@ export function createKoCopy({ i, f, account }) {
       extrasHead: { request: '추가 요청', price: '추가 비용' },
       extras,
       extrasNote:
-        '메타 광고 소재 · 상세페이지 · 자사몰 활용은 1개월까지 무료이며, 이후 1개월마다 20,000원이 추가됩니다. 비율로 표시된 옵션은 적용 대상 상품의 단가 합계를 기준으로 합니다.',
+        '메타 광고 소재 · 상세페이지 · 자사몰 활용은 2개월까지 무료이며, 이후 1개월마다 20,000원이 추가됩니다. 비율로 표시된 옵션은 적용 대상 상품의 단가 합계를 기준으로 합니다.',
     },
     rationale: {
       eyebrow: 'Pricing Basis',
