@@ -243,7 +243,7 @@ export function createEnCopy({ i, f, account, pricing }) {
       extrasHead: { request: 'Request', price: 'Additional cost' },
       extras: pricing.extras,
       extrasNote:
-        'Meta ads creative use and product page · online store use are free for the first 2 months, then ₩20,000 for each additional month. Percentage options are based on the total rate of the products they apply to.',
+        'Meta ads creative use and product page · online store use are free for the first 3 months, then ₩20,000 for each additional month. Percentage options are based on the total rate of the products they apply to.',
     },
     rationale: {
       eyebrow: 'Pricing Basis',
