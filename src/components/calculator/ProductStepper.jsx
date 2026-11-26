@@ -1,3 +1,4 @@
+import { PACKAGE_DISCOUNT } from '../../data/pricing.js'
 import { useCopy } from '../../i18n/index.jsx'
 
 export const MAX_QTY = 10
@@ -38,7 +39,7 @@ export default function ProductStepper({
             {f.wonRange(product.min, product.max)}
             {product.listMin > product.min && (
               <em className="calc-product__discount">
-                {t.packageDiscount(Math.round((1 - product.min / product.listMin) * 100))}
+                {t.packageDiscount(Math.round(PACKAGE_DISCOUNT * 100))}
               </em>
             )}
           </span>

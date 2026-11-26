@@ -249,9 +249,9 @@ export function createEnCopy({ i, f, account }) {
       terms,
       notesTitle: 'About add-on costs',
       notes: [
-        'Meta ads creative use and product page · online store use are free for the first 2 months, then ₩20,000 (₩50,000 for Tech (AI)) for each additional month.',
+        'Meta ads creative use and product page · online store use are free for the first 2 months, then $20 ($40 for Tech (AI)) for each additional month.',
         'Percentage options such as the clean version, repost and rush production are based on the total rate of the products they apply to.',
-        'Feed and Threads posts include up to 5 images; 6–10 images add ₩30,000 per post.',
+        'Feed and Threads posts include up to 5 images; 6–10 images add $25 per post.',
       ],
     },
     rationale: {

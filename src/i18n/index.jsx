@@ -3,9 +3,11 @@ import {
   contentCategories as koContentCategories,
   extraCategories as koCategories,
   extras as koExtras,
+  PACKAGE_DISCOUNT,
   productGroups as koGroups,
   retentionOptions as koRetention,
 } from '../data/pricing.js'
+import { applyPrices } from '../lib/packages.js'
 import { insights } from '../lib/insights.js'
 import { profile } from '../data/profile.js'
 import { createFormat } from './format.js'
@@ -18,6 +20,7 @@ import {
   groupLabels,
   itemLabels,
   retentionLabels,
+  usd,
 } from './pricing.en.js'
 
 export const LANGUAGES = [
@@ -25,7 +28,7 @@ export const LANGUAGES = [
   { code: 'en', name: 'English', short: 'EN', path: 'en/' },
 ]
 
-// 금액은 src/data/pricing.js 하나만 쓰고, 영어일 때 이름과 설명만 바꿔 끼웁니다.
+// 한국어는 src/data/pricing.js의 원화, 영어는 pricing.en.js의 고정 달러 단가와 문구를 끼워 넣습니다.
 function localizePricing(lang) {
   if (lang !== 'en') {
     return {
@@ -37,15 +40,38 @@ function localizePricing(lang) {
     }
   }
   return {
-    productGroups: koGroups.map((group) => ({
-      ...group,
-      ...groupLabels[group.id],
-      items: group.items.map((item) => ({ ...item, ...itemLabels[item.id] })),
+    productGroups: applyPrices(
+      koGroups.map((group) => ({
+        ...group,
+        ...groupLabels[group.id],
+        items: group.items.map((item) => {
+          const price = usd.items[item.id]
+          return { ...item, ...itemLabels[item.id], ...(price != null && { min: price, max: price }) }
+        }),
+      })),
+      PACKAGE_DISCOUNT,
+      () => 0,
+      usd.packageRound,
+    ),
+    retentionOptions: koRetention.map((option) => ({
+      ...option,
+      ...retentionLabels[option.id],
+      ...(option.id in usd.retention && { fee: usd.retention[option.id] }),
     })),
-    retentionOptions: koRetention.map((option) => ({ ...option, ...retentionLabels[option.id] })),
-    extras: koExtras.map((extra) => ({ ...extra, ...extraLabels[extra.id] })),
+    extras: koExtras.map((extra) => ({ ...extra, ...usd.extras[extra.id], ...extraLabels[extra.id] })),
     extraCategories: koCategories.map((c) => ({ ...c, ...categoryLabels[c.id] })),
-    contentCategories: koContentCategories.map((c) => ({ ...c, ...contentCategoryLabels[c.id] })),
+    contentCategories: koContentCategories.map((c) => ({
+      ...c,
+      ...usd.categories[c.id],
+      extraOverrides: Object.fromEntries(
+        Object.entries(usd.categories[c.id]?.extraOverrides ?? {}).map(([id, o]) => [
+          id,
+          { ...c.extraOverrides?.[id], ...o },
+        ]),
+      ),
+      ...contentCategoryLabels[c.id],
+    })),
+    packageRound: usd.packageRound,
   }
 }
 

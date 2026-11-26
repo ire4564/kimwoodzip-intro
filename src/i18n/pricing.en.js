@@ -1,4 +1,21 @@
-// 광고 상품 · 옵션의 영어 문구 (금액은 src/data/pricing.js 하나만 사용)
+// 광고 상품 · 옵션의 영어 문구와 달러 단가
+// 영어 페이지는 해외 브랜드용 고정 달러 단가를 씁니다. (원화 단가 대비 약 10~15% 높게, $5 단위)
+// 원화 단가를 바꿔도 달러는 자동으로 바뀌지 않으니 이 표도 함께 고쳐 주세요.
+export const usd = {
+  items: { reels: 80, 'feed-image': 40, thread: 40, story: 10 },
+  retention: { '6m': 0, '1y': 25 },
+  extras: { extraImages: { price: 25 }, metaAds: { pricePerMonth: 20 }, detailPage: { pricePerMonth: 20 } },
+  // 테크(AI): 릴스 $200 · 피드 · 스레드 $120 · 스토리 $40 · 2차 활용 월 $40
+  categories: {
+    living: { surcharge: 0 },
+    tech: {
+      surcharge: 80,
+      surchargeByItem: { reels: 120, 'feed-image': 80, thread: 80, story: 30 },
+      extraOverrides: { metaAds: { pricePerMonth: 40 }, detailPage: { pricePerMonth: 40 } },
+    },
+  },
+  packageRound: 5,
+}
 export const groupLabels = {
   reels: {
     title: 'Reels',
@@ -37,15 +54,15 @@ export const contentCategoryLabels = {
   tech: {
     label: 'Tech (AI)',
     extraPriceLabels: {
-      metaAds: '2 months free · then ₩50,000/month',
-      detailPage: '2 months free · then ₩50,000/month',
+      metaAds: '2 months free · then $40/month',
+      detailPage: '2 months free · then $40/month',
     },
   },
 }
 
 export const retentionLabels = {
   '6m': { label: '6 months', note: 'No extra cost' },
-  '1y': { label: '1 year', note: '+₩30,000' },
+  '1y': { label: '1 year', note: '+$25' },
   over: { label: 'Over 1 year', note: 'To be discussed' },
 }
 
@@ -55,18 +72,19 @@ export const categoryLabels = {
 }
 
 export const extraLabels = {
-  metaAds: { name: 'Meta ads creative use', priceLabel: '2 months free · then ₩20,000/month' },
-  detailPage: { name: 'Product page · online store use', priceLabel: '2 months free · then ₩20,000/month' },
+  metaAds: { name: 'Meta ads creative use', priceLabel: '2 months free · then $20/month' },
+  detailPage: { name: 'Product page · online store use', priceLabel: '2 months free · then $20/month' },
   exclusivity: { name: 'Competitor exclusivity', priceLabel: 'To be discussed' },
   cleanVideo: { name: 'Clean version (no captions)', priceLabel: '30% of the base rate' },
   repost: { name: 'Repost on the brand account', priceLabel: '20% of the base rate' },
   rush: { name: 'Rush production (delivery within 1 week)', priceLabel: '20% of the base rate' },
   extraRevision: { name: 'Revisions beyond 2', priceLabel: 'Per revision · to be discussed' },
-  extraImages: { name: 'Extra images for feed · Threads (6–10)', priceLabel: '₩30,000 per post' },
+  extraImages: { name: 'Extra images for feed · Threads (6–10)', priceLabel: '$25 per post' },
 }
 
 export const terms = [
   { label: 'VAT', value: 'All rates include VAT' },
+  { label: 'Currency', value: 'Quoted in USD for international campaigns' },
   {
     label: 'Scope',
     value: 'Production and upload on @kimwood.zip · any further use is discussed separately',
@@ -74,7 +92,7 @@ export const terms = [
   { label: 'Revisions', value: '1 revision included' },
   {
     label: 'Content retention',
-    value: '6 months at no extra cost · 1 year +₩30,000 · over 1 year to be discussed',
+    value: '6 months at no extra cost · 1 year +$25 · over 1 year to be discussed',
   },
   {
     label: 'Upload schedule',

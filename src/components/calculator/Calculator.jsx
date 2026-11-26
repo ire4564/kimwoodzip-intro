@@ -36,6 +36,7 @@ export default function Calculator() {
         pricing.productGroups,
         PACKAGE_DISCOUNT,
         (item) => category.surchargeByItem?.[item.id] ?? category.surcharge,
+        pricing.packageRound,
       ),
     [pricing, category],
   )

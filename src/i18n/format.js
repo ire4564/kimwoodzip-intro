@@ -14,7 +14,7 @@ export function createFormat(lang) {
 
   const won = (value) =>
     lang === 'en'
-      ? `₩${Math.round(value).toLocaleString('en-US')}`
+      ? `$${Math.round(value).toLocaleString('en-US')}`
       : `${Math.round(value).toLocaleString('ko-KR')}원`
 
   const wonRange = (min, max) => (min === max ? won(min) : `${won(min)} ~ ${won(max)}`)
