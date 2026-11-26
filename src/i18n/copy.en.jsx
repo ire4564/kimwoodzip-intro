@@ -19,7 +19,6 @@ export function createEnCopy({ i, f, account }) {
         { href: '#process', label: 'Process' },
         { href: '#contact', label: 'Contact' },
       ],
-      languageLabel: 'Select language',
     },
     hero: {
       introLines: [

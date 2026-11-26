@@ -27,7 +27,6 @@ export function createKoCopy({ i, f, account }) {
         { href: '#process', label: '진행 절차' },
         { href: '#contact', label: '문의' },
       ],
-      languageLabel: '언어 선택',
     },
     hero: {
       introLines: profile.introLines,

@@ -23,11 +23,6 @@ import {
   usd,
 } from './pricing.en.js'
 
-export const LANGUAGES = [
-  { code: 'ko', name: '한국어', short: 'KR', path: '' },
-  { code: 'en', name: 'English', short: 'EN', path: 'en/' },
-]
-
 // 한국어는 src/data/pricing.js의 원화, 영어는 pricing.en.js의 고정 달러 단가와 문구를 끼워 넣습니다.
 function localizePricing(lang) {
   if (lang !== 'en') {
@@ -78,12 +73,6 @@ function localizePricing(lang) {
 // 배포 경로(.../kimwoodzip-intro/en/)에서 현재 언어를 읽습니다.
 export function detectLanguage(pathname = window.location.pathname) {
   return pathname.replace(/\/+$/, '').endsWith('/en') ? 'en' : 'ko'
-}
-
-export function languageHref(code) {
-  const base = import.meta.env.BASE_URL
-  const target = LANGUAGES.find((l) => l.code === code)
-  return `${base}${target?.path ?? ''}`
 }
 
 const LanguageContext = createContext(null)

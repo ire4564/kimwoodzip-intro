@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import Calculator from './components/calculator/Calculator.jsx'
 import Hero from './components/Hero.jsx'
-import LanguageSwitcher from './components/LanguageSwitcher.jsx'
 import Audience from './components/sections/Audience.jsx'
 import Contact from './components/sections/Contact.jsx'
 import Footer from './components/sections/Footer.jsx'
@@ -118,7 +117,6 @@ export default function App() {
           </ul>
         </div>
       </nav>
-      <LanguageSwitcher />
       <main>
         <Hero />
         <Audience />
