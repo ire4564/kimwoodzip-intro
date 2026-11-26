@@ -3,7 +3,7 @@ import { useCopy } from '../../i18n/index.jsx'
 import { buildMailHref, buildQuoteText } from '../../lib/estimate.js'
 
 // 오른쪽(모바일에서는 아래)에 붙는 예상 견적 카드
-export default function EstimateSummary({ result, onReset, summaryRef }) {
+export default function EstimateSummary({ result, onReset, summaryRef, suggestion, onApplySuggestion }) {
   const { copy, f } = useCopy()
   const t = copy.calculator.summary
   const [copied, setCopied] = useState(false)
@@ -46,6 +46,15 @@ export default function EstimateSummary({ result, onReset, summaryRef }) {
                 </li>
               ))}
             </ul>
+
+            {suggestion && (
+              <div className="summary__suggest">
+                <p>{t.suggest(suggestion.pkg.name, f.won(suggestion.saving))}</p>
+                <button type="button" onClick={onApplySuggestion}>
+                  {t.suggestAction}
+                </button>
+              </div>
+            )}
 
             <div className="summary__total">
               <span className="summary__total-label">{t.totalLabel}</span>

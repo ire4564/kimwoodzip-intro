@@ -1,8 +1,13 @@
+import { applyPrices } from '../lib/packages.js'
+
 // 광고 상품 · 조건 · 추가 비용
 // 모든 금액은 부가세 포함 기준입니다.
 // min과 max를 다르게 두면 범위 단가로 표시되고, 계산기도 범위로 계산합니다.
 
-export const productGroups = [
+// 패키지는 구성 단품 합계에서 5% 할인한 가격입니다. (단품 단가를 바꾸면 패키지도 자동으로 바뀝니다)
+export const PACKAGE_DISCOUNT = 0.05
+
+const baseGroups = [
   {
     id: 'reels',
     title: '릴스',
@@ -51,18 +56,24 @@ export const productGroups = [
       {
         id: 'pkg-feed-reels',
         name: '피드 + 릴스 패키지',
-        min: 150000,
-        max: 150000,
+        components: ['feed-image', 'reels'],
         desc: '릴스 1건 + 피드 1건',
         hasVideo: true,
         hasImages: true,
         featured: true,
       },
       {
+        id: 'pkg-reels-thread',
+        name: '릴스 + 스레드 패키지',
+        components: ['reels', 'thread'],
+        desc: '릴스 1건 + 스레드 1건',
+        hasVideo: true,
+        hasImages: true,
+      },
+      {
         id: 'pkg-reels-story',
         name: '릴스 + 스토리 패키지',
-        min: 110000,
-        max: 110000,
+        components: ['reels', 'story'],
         desc: '릴스 1건 + 스토리 1건',
         hasVideo: true,
       },
@@ -84,7 +95,31 @@ export const productGroups = [
   },
 ]
 
+export const productGroups = applyPrices(baseGroups, PACKAGE_DISCOUNT)
+
 export const products = productGroups.flatMap((group) => group.items)
+
+// 광고 제품 카테고리 · 계산기에서 가장 먼저 고릅니다.
+// surcharge: 상품 1건마다 기본 단가에 더해지는 금액 (패키지 포함)
+// surchargeByItem: 상품별로 따로 정한 추가 금액
+//   테크: 릴스 250,000 · 스토리 50,000 · 패키지는 구성 단품 합계에서 5% 할인
+// extraOverrides: 이 카테고리에서만 바뀌는 추가 옵션 값
+export const contentCategories = [
+  { id: 'living', label: '리빙', surcharge: 0 },
+  {
+    id: 'tech',
+    label: '테크 (AI)',
+    surcharge: 100000,
+    surchargeByItem: {
+      reels: 150000,
+      story: 40000,
+    },
+    extraOverrides: {
+      metaAds: { pricePerMonth: 50000, priceLabel: '2개월 무료 · 이후 월 50,000원' },
+      detailPage: { pricePerMonth: 50000, priceLabel: '2개월 무료 · 이후 월 50,000원' },
+    },
+  },
+]
 
 export const retentionOptions = [
   { id: '6m', label: '6개월', fee: 0, note: '추가 비용 없음' },
@@ -117,22 +152,22 @@ export const extras = [
     category: 'secondary',
     name: '메타 광고 소재 활용',
     type: 'monthly',
-    includedMonths: 3,
+    includedMonths: 2,
     pricePerMonth: 20000,
-    monthOptions: [3, 4, 6, 12],
+    monthOptions: [2, 3, 6, 12],
     appliesTo: ['video'],
-    priceLabel: '3개월 무료 · 이후 월 20,000원',
+    priceLabel: '2개월 무료 · 이후 월 20,000원',
   },
   {
     id: 'detailPage',
     category: 'secondary',
     name: '상세페이지 · 자사몰 활용',
     type: 'monthly',
-    includedMonths: 3,
+    includedMonths: 2,
     pricePerMonth: 20000,
-    monthOptions: [3, 4, 6, 12],
+    monthOptions: [2, 3, 6, 12],
     appliesTo: ALL,
-    priceLabel: '3개월 무료 · 이후 월 20,000원',
+    priceLabel: '2개월 무료 · 이후 월 20,000원',
   },
   {
     id: 'exclusivity',
@@ -197,6 +232,9 @@ export const terms = [
   { label: '제작 범위', value: '콘텐츠 제작 및 @kimwood.zip 계정 업로드 · 2차 활용은 별도 논의' },
   { label: '수정 횟수', value: '기본 1회 포함' },
   { label: '콘텐츠 유지 기간', value: '6개월 추가 비용 없음 · 1년 +30,000원 · 1년 이상 협의' },
-  { label: '업로드 일정', value: '제품 수령 후 피드 · 스레드 약 5~7일, 릴스 약 7~10일 제작 후 협의 일정에 업로드' },
+  {
+    label: '업로드 일정',
+    value: '제품 수령 후 피드 · 스레드 약 5~7일, 릴스 약 7~10일 제작 후 협의 일정에 업로드',
+  },
   { label: '제품 제공 · 배송 · 촬영 비용', value: '캠페인별 협의' },
 ]

@@ -29,7 +29,19 @@ export default function ProductStepper({
         <span className="calc-check" aria-hidden="true" />
         <span className="calc-product__text">
           <span className="calc-product__name">{product.name}</span>
-          <span className="calc-product__price">{f.wonRange(product.min, product.max)}</span>
+          <span className="calc-product__price">
+            {product.listMin > product.min && (
+              <>
+                <s className="calc-product__list">{f.wonRange(product.listMin, product.listMax)}</s>{' '}
+              </>
+            )}
+            {f.wonRange(product.min, product.max)}
+            {product.listMin > product.min && (
+              <em className="calc-product__discount">
+                {t.packageDiscount(Math.round((1 - product.min / product.listMin) * 100))}
+              </em>
+            )}
+          </span>
         </span>
       </button>
       <div className="stepper" aria-label={t.quantity(product.name)}>

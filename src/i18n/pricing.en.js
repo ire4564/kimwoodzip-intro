@@ -27,8 +27,20 @@ export const itemLabels = {
   'feed-image': { name: 'Instagram feed', desc: '5 photos standard · up to 10' },
   thread: { name: 'Threads post', desc: '5 photos standard · up to 10' },
   'pkg-feed-reels': { name: 'Feed + Reels package', desc: '1 Reels + 1 feed post', badge: 'Popular' },
+  'pkg-reels-thread': { name: 'Reels + Threads package', desc: '1 Reels + 1 Threads post' },
   'pkg-reels-story': { name: 'Reels + Story package', desc: '1 Reels + 1 story' },
   story: { name: 'Story', desc: '' },
+}
+
+export const contentCategoryLabels = {
+  living: { label: 'Living' },
+  tech: {
+    label: 'Tech (AI)',
+    extraPriceLabels: {
+      metaAds: '2 months free · then ₩50,000/month',
+      detailPage: '2 months free · then ₩50,000/month',
+    },
+  },
 }
 
 export const retentionLabels = {
@@ -43,8 +55,8 @@ export const categoryLabels = {
 }
 
 export const extraLabels = {
-  metaAds: { name: 'Meta ads creative use', priceLabel: '3 months free · then ₩20,000/month' },
-  detailPage: { name: 'Product page · online store use', priceLabel: '3 months free · then ₩20,000/month' },
+  metaAds: { name: 'Meta ads creative use', priceLabel: '2 months free · then ₩20,000/month' },
+  detailPage: { name: 'Product page · online store use', priceLabel: '2 months free · then ₩20,000/month' },
   exclusivity: { name: 'Competitor exclusivity', priceLabel: 'To be discussed' },
   cleanVideo: { name: 'Clean version (no captions)', priceLabel: '30% of the base rate' },
   repost: { name: 'Repost on the brand account', priceLabel: '20% of the base rate' },
@@ -66,7 +78,8 @@ export const terms = [
   },
   {
     label: 'Upload schedule',
-    value: 'Uploaded on the agreed date after about 5–7 days (feed · Threads) or 7–10 days (Reels) of production',
+    value:
+      'Uploaded on the agreed date after about 5–7 days (feed · Threads) or 7–10 days (Reels) of production',
   },
   { label: 'Product · shipping · shooting costs', value: 'Agreed per campaign' },
 ]

@@ -1,5 +1,8 @@
 import { accountInsights as account, promoAverages, promoContents, recentReels } from '../data/insights.js'
 
+// 크게 퍼진 릴스로 보는 도달 기준 ("5만 명 이상 도달한 릴스 N개")
+export const BIG_REACH = 50000
+
 const sum = (list, pick) => list.reduce((total, item) => total + pick(item), 0)
 
 const median = (values) => {
@@ -56,6 +59,8 @@ function computeInsights() {
     reachMeanMultiple: reachMean / account.followers,
     reachMedianMultiple: reachMedian / account.followers,
     reelsAboveTwiceFollowers: reels.filter((r) => r.reach >= twiceFollowers).length,
+    bigReach: BIG_REACH,
+    reelsAboveBigReach: reels.filter((r) => r.reach >= BIG_REACH).length,
 
     viewsMean: sum(reels, (r) => r.views) / reels.length,
     viewsMedian: median(reels.map((r) => r.views)),

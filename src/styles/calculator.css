@@ -214,6 +214,19 @@
   line-height: 1.35;
 }
 
+.calc-product__list {
+  color: var(--ink-mute);
+  font-size: 12px;
+}
+
+.calc-product__discount {
+  margin-left: 6px;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 700;
+  color: var(--walnut-500);
+}
+
 .calc-product__price {
   font-size: 13px;
   color: var(--ink-soft);
@@ -262,6 +275,15 @@
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 8px;
+}
+
+/* 카테고리처럼 선택지가 2개면 반씩 나누고 높이를 낮춥니다. */
+.segmented--half {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.segmented--half .segmented__item {
+  padding: 10px 8px;
 }
 
 .segmented__item {
@@ -447,6 +469,34 @@
   font-weight: 600;
   text-align: right;
   font-variant-numeric: tabular-nums;
+}
+
+.summary__suggest {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 16px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: rgba(245, 239, 230, 0.1);
+  border: 1px solid rgba(245, 239, 230, 0.2);
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--linen);
+}
+
+.summary__suggest button {
+  flex: none;
+  padding: 7px 12px;
+  border-radius: 999px;
+  border: 0;
+  background: var(--oak-200);
+  color: var(--walnut-900);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
 }
 
 .summary__lines li.is-muted span {

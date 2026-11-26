@@ -9,6 +9,7 @@ export function estimate({
   selectedExtras,
   extraMonths = {},
   imageTiers = {},
+  category,
   pricing,
   quoteCopy,
 }) {
@@ -98,6 +99,7 @@ export function estimate({
 
   const lines = [...productLines, ...extraLines]
   return {
+    category,
     hasContent,
     hasVideo,
     hasImages,
@@ -122,6 +124,7 @@ export function buildQuoteText(result, quoteCopy, f) {
   const rows = [
     quoteCopy.heading,
     '',
+    ...(result.category ? [quoteCopy.category(result.category.label), ''] : []),
     quoteCopy.selected,
     ...result.productLines.map((l) => `- ${l.label}: ${f.wonRange(l.min, l.max)}`),
     ...result.extraLines.map((l) => `- ${l.label}: ${f.wonRange(l.min, l.max)}`),

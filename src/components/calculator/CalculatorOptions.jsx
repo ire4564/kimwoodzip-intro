@@ -17,8 +17,12 @@ function Group({ step, title, hint, children }) {
   )
 }
 
-// 상품 · 유지 기간 · 추가 옵션 선택 영역
+// 카테고리 · 상품 · 유지 기간 · 추가 옵션 선택 영역
 export default function CalculatorOptions({
+  categoryId,
+  onCategoryChange,
+  productGroups,
+  extras: allExtras,
   quantities,
   onQuantityChange,
   retentionId,
@@ -34,14 +38,34 @@ export default function CalculatorOptions({
 }) {
   const { copy, pricing } = useCopy()
   const t = copy.calculator
-  const { productGroups, retentionOptions, extraCategories } = pricing
+  const { retentionOptions, extraCategories, contentCategories } = pricing
   // 이미지 장수 옵션은 상품 카드 안에서 고르므로 추가 옵션 목록에서는 뺍니다.
-  const extras = pricing.extras.filter((e) => e.type !== 'perImagePost')
-  const imageExtra = pricing.extras.find((e) => e.type === 'perImagePost')
+  const extras = allExtras.filter((e) => e.type !== 'perImagePost')
+  const imageExtra = allExtras.find((e) => e.type === 'perImagePost')
 
   return (
     <div className="calc__options">
-      <Group step={1} title={t.steps.products} hint={t.steps.productsHint}>
+      <Group step={1} title={t.steps.category} hint={t.steps.categoryHint}>
+        <div className="segmented segmented--half" role="radiogroup">
+          {contentCategories.map((option) => (
+            <label
+              key={option.id}
+              className={`segmented__item${categoryId === option.id ? ' is-active' : ''}`}
+            >
+              <input
+                type="radio"
+                name="category"
+                value={option.id}
+                checked={categoryId === option.id}
+                onChange={() => onCategoryChange(option.id)}
+              />
+              <span className="segmented__label">{option.label}</span>
+            </label>
+          ))}
+        </div>
+      </Group>
+
+      <Group step={2} title={t.steps.products} hint={t.steps.productsHint}>
         <div className="calc-product-groups">
           {productGroups.map((group) => (
             <div key={group.id} className="calc-product-group">
@@ -64,7 +88,7 @@ export default function CalculatorOptions({
         </div>
       </Group>
 
-      <Group step={2} title={t.steps.retention}>
+      <Group step={3} title={t.steps.retention}>
         <div className="segmented" role="radiogroup">
           {retentionOptions.map((option) => (
             <label
@@ -85,7 +109,7 @@ export default function CalculatorOptions({
         </div>
       </Group>
 
-      <Group step={3} title={t.steps.extras}>
+      <Group step={4} title={t.steps.extras}>
         {extraCategories.map((category) => (
           <div key={category.id} className="calc-extra-group">
             <p className="calc-product-group__title">{category.title}</p>

@@ -1,9 +1,9 @@
 import { insightsMeta } from '../data/insights.js'
 import { profile } from '../data/profile.js'
-import { itemLabels, terms } from './pricing.en.js'
+import { terms } from './pricing.en.js'
 
 // 영어 사이트 문구 (한국어 사이트를 그대로 번역)
-export function createEnCopy({ i, f, account, pricing }) {
+export function createEnCopy({ i, f, account }) {
   const [y, m, d] = insightsMeta.collectedAt.split('-')
 
   return {
@@ -14,7 +14,7 @@ export function createEnCopy({ i, f, account, pricing }) {
       items: [
         { href: '#about', label: 'Audience' },
         { href: '#metrics', label: 'Metrics' },
-        { href: '#rates', label: 'Rates' },
+        { href: '#rates', label: 'Terms' },
         { href: '#calculator', label: 'Calculator' },
         { href: '#process', label: 'Process' },
         { href: '#contact', label: 'Contact' },
@@ -46,7 +46,11 @@ export function createEnCopy({ i, f, account, pricing }) {
         { label: 'Followers', value: f.num(i.followers), unit: '' },
         { label: 'Non-follower views', value: f.pct(i.nonFollowerViewShare, 0), unit: '' },
         { label: 'Avg. Reels reach', value: f.approx(i.reachMean), unit: '' },
-        { label: 'Median Reels reach', value: f.approx(i.reachMedian), unit: '' },
+        {
+          label: `Reels with ${f.compact(i.bigReach)}+ reach`,
+          value: `${i.reelsAboveBigReach} / ${i.reelCount}`,
+          unit: '',
+        },
       ],
       meta: ({ days, months }) =>
         `Opened ${account.y}.${account.m}.${account.d} · day ${days} (about ${months} months) · ${profile.posts} posts · 3–5 posts a week`,
@@ -86,6 +90,14 @@ export function createEnCopy({ i, f, account, pricing }) {
           title: 'Older apartments',
           desc: 'People who want to refresh an older apartment through layout and styling',
         },
+        {
+          title: 'AI in everyday life',
+          desc: 'People who want AI to make chores, decorating and planning easier',
+        },
+        {
+          title: 'Getting started with AI tools',
+          desc: 'People who want simple, developer-explained AI tool tips they can use at work and home right away',
+        },
       ],
       info: [
         { label: 'Main categories', value: 'Interior · Living · Newlywed life' },
@@ -99,13 +111,14 @@ export function createEnCopy({ i, f, account, pricing }) {
       desc: `Instagram Insights · collected ${y}.${m}.${d}`,
       summary: (
         <>
-          Across the last {i.reelCount} Reels, average reach was about {f.approx(i.reachMean)} accounts and
-          median reach about {f.approx(i.reachMedian)}. Over the last 90 days,{' '}
+          Of the last {i.reelCount} Reels, {i.reelsAboveTwiceFollowers} reached more than twice the follower
+          count and {i.reelsAboveBigReach} reached over {f.compact(i.bigReach)} accounts, with average reach
+          of about {f.approx(i.reachMean)}. Over the last 90 days,{' '}
           <strong>{f.pct(i.nonFollowerViewShare, 0)} of all views came from non-followers</strong>, which
           shows the account keeps reaching new potential customers.
         </>
       ),
-      reelsLabel: 'Last 10 Reels',
+      reelsLabel: 'Last 20 Reels',
       reelsNote: i.promoCount > 0 ? `includes ${i.promoCount} sponsored post` : '',
       accountLabel: 'Whole account · last 90 days',
       reelCards: [
@@ -117,10 +130,10 @@ export function createEnCopy({ i, f, account, pricing }) {
           tone: 'strong',
         },
         {
-          label: 'Median reach',
-          value: `~${f.approx(i.reachMedian)}`,
+          label: 'Reached 2× followers',
+          value: `${i.reelsAboveTwiceFollowers} / ${i.reelCount}`,
           unit: '',
-          sub: `About ${i.reachMedianMultiple.toFixed(1)}× followers`,
+          sub: `${i.reelsAboveBigReach} over ${f.compact(i.bigReach)} · peak ${f.num(i.reachMax)}`,
           tone: 'strong',
         },
         {
@@ -188,11 +201,11 @@ export function createEnCopy({ i, f, account, pricing }) {
         ],
       },
       footnotes: [
-        `Reach across the last ${i.reelCount} Reels ranged from ${f.num(i.reachMin)} to ${f.num(i.reachMax)} accounts, so average and median reach do not guarantee the reach of any single post.`,
+        `Reach across the last ${i.reelCount} Reels ranged from ${f.num(i.reachMin)} to ${f.num(i.reachMax)} accounts, so average reach does not guarantee the reach of any single post (median about ${f.approx(i.reachMedian)}).`,
         `Engagement, save and share rates divide all interactions across the last ${i.reelCount} Reels by total reach.`,
         'Per-post link click data is not available, so the link click rate is measured across the whole account.',
         `Sponsored metrics are a simple average of each of the ${i.promoContentCount} posts, and regular content is averaged the same way across the ${i.organicCount} non-sponsored Reels.`,
-        'Sponsored posts that the brand ran as paid ads, where most reach came from paid placement, are excluded because their engagement rate is distorted.',
+        'Posts that the brand ran as paid ads, where most reach came from paid placement, are excluded from both the recent Reels and the sponsored averages because their reach and engagement are distorted.',
       ],
     },
     strengths: {
@@ -229,28 +242,24 @@ export function createEnCopy({ i, f, account, pricing }) {
       ],
     },
     rateCard: {
-      eyebrow: 'Rate Card',
-      title: 'Products and rates',
-      desc: 'All rates include VAT.',
-      groups: pricing.productGroups,
-      badge: itemLabels['pkg-feed-reels'].badge,
+      eyebrow: 'Terms',
+      title: 'Terms and notes',
+      desc: 'Product rates and add-on costs are shown in the estimate calculator below.',
       termsTitle: 'Terms',
       terms,
-      extrasTitle: 'Add-ons and further use',
-      appliesLabel: (appliesTo) =>
-        appliesTo.length > 1 ? 'Feed · Threads · Reels' : appliesTo[0] === 'video' ? 'Reels' : 'Feed · Threads',
-      extraCategories: pricing.extraCategories,
-      extrasHead: { request: 'Request', price: 'Additional cost' },
-      extras: pricing.extras,
-      extrasNote:
-        'Meta ads creative use and product page · online store use are free for the first 3 months, then ₩20,000 for each additional month. Percentage options are based on the total rate of the products they apply to.',
+      notesTitle: 'About add-on costs',
+      notes: [
+        'Meta ads creative use and product page · online store use are free for the first 2 months, then ₩20,000 (₩50,000 for Tech (AI)) for each additional month.',
+        'Percentage options such as the clean version, repost and rush production are based on the total rate of the products they apply to.',
+        'Feed and Threads posts include up to 5 images; 6–10 images add ₩30,000 per post.',
+      ],
     },
     rationale: {
       eyebrow: 'Pricing Basis',
       title: 'How these rates are set',
       text: 'Rates combine average performance, production difficulty, category fit, and the scope of shooting and editing. They are based on the average performance of a single post rather than one viral hit.',
       reasons: [
-        `Median reach is about ${i.reachMedianMultiple.toFixed(1)}× the follower count.`,
+        `${i.reelsAboveBigReach} of the last ${i.reelCount} Reels reached over ${f.compact(i.bigReach)} accounts, peaking at ${f.compact(i.reachMax)}.`,
         `${i.reelsAboveTwiceFollowers} of the last ${i.reelCount} Reels reached more than twice the follower count.`,
         `${f.pct(i.nonFollowerViewShare, 0)} of views over the last 90 days came from non-followers.`,
         `Sponsored posts still average ${f.pct(i.promoRate)} engagement (${f.pct(i.promoRateMin, 1)}–${f.pct(i.promoRateMax, 1)} per post).`,
@@ -262,11 +271,14 @@ export function createEnCopy({ i, f, account, pricing }) {
       title: 'Budget calculator',
       desc: 'Pick the products and options you need and the estimated budget appears right away.',
       steps: {
+        category: 'Product category',
+        categoryHint: 'Rates depend on the category.',
         products: 'Choose products',
         productsHint: 'You can combine products and change the quantity.',
         retention: 'Content retention',
         extras: 'Add-ons',
       },
+      packageDiscount: (pct) => `${pct}% off`,
       availableWith: (appliesTo) =>
         appliesTo.includes('images')
           ? 'Available with feed, Threads or Reels'
@@ -284,6 +296,8 @@ export function createEnCopy({ i, f, account, pricing }) {
       summary: {
         title: 'Estimate',
         reset: 'Reset',
+        suggest: (name, saving) => `Switch to the ${name} and save ${saving}.`,
+        suggestAction: 'Switch to package',
         negotiable: 'To be discussed',
         totalLabel: 'Estimated budget · VAT included',
         negotiableNote: (count) =>
@@ -353,6 +367,7 @@ export function createEnCopy({ i, f, account, pricing }) {
     },
     quote: {
       heading: `[Campaign estimate · @${profile.handle}]`,
+      category: (label) => `■ Category: ${label}`,
       selected: '■ Selected items',
       negotiableHeading: '■ To be discussed',
       total: (range) => `■ Estimated budget (VAT included): ${range}`,

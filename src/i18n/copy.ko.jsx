@@ -1,5 +1,5 @@
 import { insightsMeta } from '../data/insights.js'
-import { extraCategories, extras, productGroups, terms } from '../data/pricing.js'
+import { terms } from '../data/pricing.js'
 import {
   homePhotos,
   inquiryChecklist,
@@ -22,7 +22,7 @@ export function createKoCopy({ i, f, account }) {
       items: [
         { href: '#about', label: '타깃' },
         { href: '#metrics', label: '지표' },
-        { href: '#rates', label: '단가' },
+        { href: '#rates', label: '조건' },
         { href: '#calculator', label: '계산기' },
         { href: '#process', label: '진행 절차' },
         { href: '#contact', label: '문의' },
@@ -39,7 +39,11 @@ export function createKoCopy({ i, f, account }) {
         { label: '팔로워', value: f.num(i.followers), unit: '명' },
         { label: '비팔로워 조회', value: f.pct(i.nonFollowerViewShare, 0), unit: '' },
         { label: '릴스 평균 도달', value: f.approx(i.reachMean), unit: '명' },
-        { label: '릴스 중앙 도달', value: f.approx(i.reachMedian), unit: '명' },
+        {
+          label: `${f.compact(i.bigReach)}+ 도달 릴스`,
+          value: `${i.reelsAboveBigReach} / ${i.reelCount}`,
+          unit: '개',
+        },
       ],
       meta: ({ days, months }) =>
         `${account.y}.${account.m}.${account.d} 개설 · 운영 ${days}일째(약 ${months}개월) · 게시물 ${profile.posts}개 · ${profile.postingFrequency}`,
@@ -70,8 +74,9 @@ export function createKoCopy({ i, f, account }) {
       desc: `Instagram 인사이트 기준 · ${y}.${m}.${d} 수집`,
       summary: (
         <>
-          최근 {i.reelCount}개 릴스 기준 평균 도달 약 {f.approx(i.reachMean)}명, 중앙 도달 약{' '}
-          {f.approx(i.reachMedian)}명을 기록했습니다. 최근 90일 계정 전체 조회수의{' '}
+          최근 {i.reelCount}개 릴스 중 {i.reelsAboveTwiceFollowers}개가 팔로워 수의 2배 이상,{' '}
+          {i.reelsAboveBigReach}개가 {f.compact(i.bigReach)} 명 이상에게 도달했고 평균 도달은 약{' '}
+          {f.approx(i.reachMean)}명입니다. 최근 90일 계정 전체 조회수의{' '}
           <strong>{f.pct(i.nonFollowerViewShare, 0)}가 비팔로워</strong>에게서 발생해 신규 잠재고객 도달력이
           확인됩니다.
         </>
@@ -88,10 +93,10 @@ export function createKoCopy({ i, f, account }) {
           tone: 'strong',
         },
         {
-          label: '중앙 도달',
-          value: `약 ${f.approx(i.reachMedian)}`,
-          unit: '명',
-          sub: `팔로워 수의 약 ${i.reachMedianMultiple.toFixed(1)}배`,
+          label: '팔로워 2배 이상 도달',
+          value: `${i.reelsAboveTwiceFollowers} / ${i.reelCount}`,
+          unit: '개',
+          sub: `${f.compact(i.bigReach)} 명 이상 ${i.reelsAboveBigReach}개 · 최고 ${f.num(i.reachMax)}명`,
           tone: 'strong',
         },
         {
@@ -159,11 +164,11 @@ export function createKoCopy({ i, f, account }) {
         ],
       },
       footnotes: [
-        `최근 ${i.reelCount}개 릴스의 도달은 ${f.num(i.reachMin)}명부터 ${f.num(i.reachMax)}명까지 콘텐츠별 편차가 커서, 평균 · 중앙 도달이 콘텐츠 1건의 도달을 보장하지는 않습니다.`,
+        `최근 ${i.reelCount}개 릴스의 도달은 ${f.num(i.reachMin)}명부터 ${f.num(i.reachMax)}명까지 콘텐츠별 편차가 커서(중앙 도달 약 ${f.approx(i.reachMedian)}명), 평균 도달이 콘텐츠 1건의 도달을 보장하지는 않습니다.`,
         `참여율 · 저장률 · 공유율은 최근 ${i.reelCount}개 릴스의 전체 반응을 전체 도달로 나눈 값입니다.`,
         '콘텐츠별 링크 클릭 데이터는 제공되지 않아 링크 클릭률은 계정 전체 기준입니다.',
         `홍보 콘텐츠 지표는 ${i.promoContentCount}건 각 비율의 단순 평균이며, 일반 콘텐츠 평균도 최근 릴스 중 홍보 콘텐츠를 제외한 ${i.organicCount}건의 단순 평균으로 같은 방식으로 비교했습니다.`,
-        '브랜드 광고로 별도 집행되어 도달 대부분이 유료 노출인 홍보 콘텐츠는 참여율이 왜곡되어 평균에서 제외했습니다.',
+        '브랜드 광고로 별도 집행되어 도달 대부분이 유료 노출인 콘텐츠는 도달 · 참여율이 왜곡되어 최근 릴스와 홍보 콘텐츠 평균에서 모두 제외했습니다.',
       ],
     },
     strengths: {
@@ -200,28 +205,24 @@ export function createKoCopy({ i, f, account }) {
       ],
     },
     rateCard: {
-      eyebrow: 'Rate Card',
-      title: '광고 상품 및 단가',
-      desc: '모든 단가는 부가세 포함 금액입니다.',
-      groups: productGroups,
-      badge: '추천',
+      eyebrow: 'Terms',
+      title: '진행 조건 및 안내',
+      desc: '상품 단가와 추가 옵션 비용은 아래 광고비 계산기에서 확인할 수 있어요.',
       termsTitle: '진행 조건',
       terms,
-      extrasTitle: '추가 비용 및 2차 활용',
-      appliesLabel: (appliesTo) =>
-        appliesTo.length > 1 ? '피드 · 스레드 · 릴스' : appliesTo[0] === 'video' ? '릴스' : '피드 · 스레드',
-      extraCategories,
-      extrasHead: { request: '추가 요청', price: '추가 비용' },
-      extras,
-      extrasNote:
-        '메타 광고 소재 · 상세페이지 · 자사몰 활용은 3개월까지 무료이며, 이후 1개월마다 20,000원이 추가됩니다. 비율로 표시된 옵션은 적용 대상 상품의 단가 합계를 기준으로 합니다.',
+      notesTitle: '추가 비용 안내',
+      notes: [
+        '메타 광고 소재 · 상세페이지 · 자사몰 활용은 2개월까지 무료이며, 이후 1개월마다 20,000원(테크(AI)는 50,000원)이 추가됩니다.',
+        '클린본 · 재게시 · 급행 제작처럼 비율로 표시된 옵션은 적용 대상 상품의 단가 합계를 기준으로 합니다.',
+        '피드 · 스레드는 이미지 5장까지 기본 포함이며, 6~10장은 콘텐츠 1건당 30,000원이 추가됩니다.',
+      ],
     },
     rationale: {
       eyebrow: 'Pricing Basis',
       title: '단가 산정 근거',
       text: pricingBasis,
       reasons: [
-        `중앙 도달이 팔로워 수의 약 ${i.reachMedianMultiple.toFixed(1)}배입니다.`,
+        `최근 ${i.reelCount}개 릴스 중 ${i.reelsAboveBigReach}개가 ${f.compact(i.bigReach)} 명 이상에게 도달했고, 최고 도달은 ${f.compact(i.reachMax)} 명입니다.`,
         `최근 ${i.reelCount}개 릴스 중 ${i.reelsAboveTwiceFollowers}개가 팔로워 수의 2배 이상 도달했습니다.`,
         `최근 90일 조회수의 ${f.pct(i.nonFollowerViewShare, 0)}가 비팔로워에게서 발생했습니다.`,
         `광고 표기 콘텐츠 ${i.promoContentCount}건도 평균 참여율 ${f.pct(i.promoRate)}(콘텐츠별 ${f.pct(i.promoRateMin, 1)}~${f.pct(i.promoRateMax, 1)})의 반응을 보였습니다.`,
@@ -233,13 +234,18 @@ export function createKoCopy({ i, f, account }) {
       title: '광고비 계산기',
       desc: '원하는 상품과 옵션을 선택하면 예상 집행 광고비가 바로 계산됩니다.',
       steps: {
+        category: '광고 제품 카테고리',
+        categoryHint: '카테고리에 따라 상품 단가가 달라져요.',
         products: '광고 상품 선택',
         productsHint: '여러 상품을 함께 선택하거나 수량을 조절할 수 있어요.',
         retention: '콘텐츠 유지 기간',
         extras: '추가 옵션',
       },
+      packageDiscount: (pct) => `${pct}% 할인`,
       availableWith: (appliesTo) =>
-        appliesTo.includes('images') ? '피드 · 스레드 · 릴스 선택 시 가능' : '릴스가 포함된 상품 선택 시 가능',
+        appliesTo.includes('images')
+          ? '피드 · 스레드 · 릴스 선택 시 가능'
+          : '릴스가 포함된 상품 선택 시 가능',
       imageTier: {
         label: (name) => `${name} 이미지 장수`,
         base: '5장까지',
@@ -253,6 +259,8 @@ export function createKoCopy({ i, f, account }) {
       summary: {
         title: '예상 견적',
         reset: '초기화',
+        suggest: (name, saving) => `${name}로 바꾸면 ${saving} 할인돼요.`,
+        suggestAction: '패키지로 바꾸기',
         negotiable: '별도 협의',
         totalLabel: '예상 광고비 · 부가세 포함',
         negotiableNote: (count) => `별도 협의 항목 ${count}건의 비용은 제외된 금액입니다.`,
@@ -284,6 +292,7 @@ export function createKoCopy({ i, f, account }) {
     },
     quote: {
       heading: `[@${profile.handle} 광고 견적 문의]`,
+      category: (label) => `■ 카테고리: ${label}`,
       selected: '■ 선택 항목',
       negotiableHeading: '■ 별도 협의 항목',
       total: (range) => `■ 예상 광고비 (부가세 포함): ${range}`,
