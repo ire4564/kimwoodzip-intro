@@ -6,8 +6,8 @@ export const usd = {
   retention: { '6m': 0, '1y': 25 },
   extras: {
     extraImages: { price: 25 },
-    metaAds: { pricePerMonth: 20 },
-    detailPage: { pricePerMonth: 20 },
+    metaAds: { pricePerMonth: 25 },
+    detailPage: { pricePerMonth: 25 },
     profileLink: {
       periodOptions: [
         { id: 'week', label: '1 week', price: 15 },
@@ -82,8 +82,8 @@ export const categoryLabels = {
 }
 
 export const extraLabels = {
-  metaAds: { name: 'Meta ads creative use', priceLabel: '2 months free · then $20/month' },
-  detailPage: { name: 'Product page · online store use', priceLabel: '2 months free · then $20/month' },
+  metaAds: { name: 'Meta ads creative use', priceLabel: '2 months free · then $25/month' },
+  detailPage: { name: 'Product page · online store use', priceLabel: '2 months free · then $25/month' },
   exclusivity: { name: 'Competitor exclusivity', priceLabel: 'To be discussed' },
   cleanVideo: { name: 'Clean version (no captions)', priceLabel: '30% of the base rate' },
   repost: { name: 'Repost on the brand account', priceLabel: '20% of the base rate' },
