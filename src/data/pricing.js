@@ -141,6 +141,7 @@ export const extraCategories = [
 // - fixed: 고정 금액
 // - monthly: includedMonths까지 무료, 이후 1개월마다 pricePerMonth 추가 (계산기에서 개월 수 선택)
 // - negotiable: 금액 없이 별도 협의
+// - period: periodOptions 중 기간 하나를 골라 그 금액 (계산기에서 기간 선택)
 // - perImagePost: 계산기에서는 체크박스 대신 피드 · 스레드 상품 카드 안에서 장수(5장까지 / 6~10장)로 고릅니다.
 //   6~10장을 고른 상품 수량만큼 price가 더해집니다.
 const ALL = ['video', 'images']
@@ -196,6 +197,18 @@ export const extras = [
     max: 0.2,
     appliesTo: ALL,
     priceLabel: '기본 단가의 20%',
+  },
+  {
+    id: 'profileLink',
+    category: 'secondary',
+    name: '프로필 링크 상단 표시',
+    type: 'period',
+    periodOptions: [
+      { id: 'week', label: '1주', price: 20000 },
+      { id: 'month', label: '1개월', price: 50000 },
+    ],
+    appliesTo: ALL,
+    priceLabel: '1주 20,000원 · 1개월 50,000원',
   },
   // 제작 옵션
   {

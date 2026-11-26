@@ -154,6 +154,21 @@ export default function CalculatorOptions({
                           ))}
                         </select>
                       )}
+                      {extra.type === 'period' && checked && (
+                        <select
+                          className="calc-extra__months"
+                          aria-label={t.monthsLabel(extra.name)}
+                          value={extraMonths[extra.id] ?? extra.periodOptions[0].id}
+                          onChange={(e) => onExtraMonthsChange(extra.id, e.target.value)}
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          {extra.periodOptions.map((o) => (
+                            <option key={o.id} value={o.id}>
+                              {o.label}
+                            </option>
+                          ))}
+                        </select>
+                      )}
                     </label>
                   )
                 })}

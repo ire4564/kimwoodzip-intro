@@ -86,6 +86,16 @@ export function estimate({
         min: fee,
         max: fee,
       })
+    } else if (extra.type === 'period') {
+      // 기간 선택값은 extraMonths에 기간 id로 담깁니다.
+      const option =
+        extra.periodOptions.find((o) => o.id === extraMonths[extra.id]) ?? extra.periodOptions[0]
+      extraLines.push({
+        id: extra.id,
+        label: `${extra.name} (${option.label})`,
+        min: option.price,
+        max: option.price,
+      })
     } else if (extra.type === 'percent') {
       const target = eligibleBase(extra.appliesTo)
       extraLines.push({

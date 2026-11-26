@@ -4,7 +4,17 @@
 export const usd = {
   items: { reels: 80, 'feed-image': 40, thread: 40, story: 10 },
   retention: { '6m': 0, '1y': 25 },
-  extras: { extraImages: { price: 25 }, metaAds: { pricePerMonth: 20 }, detailPage: { pricePerMonth: 20 } },
+  extras: {
+    extraImages: { price: 25 },
+    metaAds: { pricePerMonth: 20 },
+    detailPage: { pricePerMonth: 20 },
+    profileLink: {
+      periodOptions: [
+        { id: 'week', label: '1 week', price: 15 },
+        { id: 'month', label: '1 month', price: 40 },
+      ],
+    },
+  },
   // 테크(AI): 릴스 $200 · 피드 · 스레드 $120 · 스토리 $40 · 2차 활용 월 $40
   categories: {
     living: { surcharge: 0 },
@@ -77,6 +87,7 @@ export const extraLabels = {
   exclusivity: { name: 'Competitor exclusivity', priceLabel: 'To be discussed' },
   cleanVideo: { name: 'Clean version (no captions)', priceLabel: '30% of the base rate' },
   repost: { name: 'Repost on the brand account', priceLabel: '20% of the base rate' },
+  profileLink: { name: 'Pinned link at the top of the profile', priceLabel: '$15 per week · $40 per month' },
   rush: { name: 'Rush production (delivery within 1 week)', priceLabel: '20% of the base rate' },
   extraRevision: { name: 'Revisions beyond 2', priceLabel: 'Per revision · to be discussed' },
   extraImages: { name: 'Extra images for feed · Threads (6–10)', priceLabel: '$25 per post' },
